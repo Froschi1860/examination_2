@@ -1,0 +1,2 @@
+# Normalize end-of-line character to /n instead of /r/n (windows)
+* text=auto
