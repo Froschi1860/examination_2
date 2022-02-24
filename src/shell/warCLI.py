@@ -11,6 +11,8 @@ Welcome to war! How about a game of cards?
         print(intro)
         return mainMenu.MainMenu().cmdloop()
 
+def start_cli():
+    WarCLI.cmdloop()
 
 def main():
     WarCLI().cmdloop()
