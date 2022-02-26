@@ -1,4 +1,4 @@
-import cmd, mainMenu, player
+import cmd
 
 
 class PlayerMenu(cmd.Cmd):

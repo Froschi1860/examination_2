@@ -1,4 +1,4 @@
-import cmd, playerMenu, highscore
+import cmd, playerMenu
 
 
 class MainMenu(cmd.Cmd):

@@ -1,7 +1,8 @@
 import unittest
 import io
 import sys
-from src.game import mainMenu
+from game import mainMenu
+
 
 
 class testMainMenu(unittest.TestCase):
@@ -14,8 +15,8 @@ class testMainMenu(unittest.TestCase):
         exp = "\n"
         self.assertEqual(exp, res)
 
-    def test_do_exit(self):
-        res = mainMenu.MainMenu().do_exit(line="exit")
+    def test_do_end(self):
+        res = mainMenu.MainMenu().do_end(line="exit")
         self.assertTrue(res)
 
     def test_do_exit_terminates(self):
