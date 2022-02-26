@@ -73,5 +73,8 @@ def start_cli():
     print(welcome_message)
     MainMenu().cmdloop()
 
-if __name__ == "__main__":
+def main():
     start_cli()
+
+if __name__ == "__main__":
+    main()
