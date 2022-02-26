@@ -3,19 +3,19 @@ import mainMenu
 
 
 class WarCLI(cmd.Cmd):
-    welcome_message = """
-Welcome to war! How about a game of cards?
-------------------------------------------"""
+    '''Start the game interface'''
 
-    def cmdloop(self, intro=welcome_message):
-        print(intro)
+    def cmdloop(self):
+        '''Start main menu'''
         return mainMenu.MainMenu().cmdloop()
 
-def start_cli():
-    WarCLI.cmdloop()
+welcome_message = """\nWelcome to war! How about a game of cards?
+------------------------------------------"""
 
-def main():
+def start_cli():
+    '''Initialize the game interface and welcome user'''
+    print(welcome_message)
     WarCLI().cmdloop()
 
 if __name__ == "__main__":
-    main()
+    start_cli()
