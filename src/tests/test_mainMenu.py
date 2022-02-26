@@ -1,7 +1,7 @@
 import unittest
 import io
 import sys
-import mainMenu
+from src.game import mainMenu
 
 
 class testMainMenu(unittest.TestCase):
