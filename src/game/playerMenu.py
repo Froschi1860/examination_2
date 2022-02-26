@@ -1,11 +1,11 @@
-import cmd
-from socket import inet_aton
-from tkinter import Menu
+import cmd, mainMenu, player
 
 
 class PlayerMenu(cmd.Cmd):
     
     prompt = "\n(Player menu) "
+
+    player = None
 
     menu_message = """
 Player menu
@@ -15,31 +15,39 @@ Please choose one of the folowing options:
 
 choose - Open an existing player profile
 create - Create a new player profile
-change - Change current player profile
-chosen - Display chosen Player
+current - Display current Player
+menu - Display menu
 exit - Return to main menu"""
 
-    player = None
+    def __init__(self, completekey='tab', stdin: str=None, stdout: str=None, player=None):
+        '''Initialise a PlayerMenu object and sets self.player is a player is already chosen'''
+        super().__init__(completekey, stdin, stdout)
+        self.player = player
 
     def cmdloop(self):
-        '''Run menu and return chosen player'''
-        return super().cmdloop(), self.player
+        '''Run menu and return current player'''
+        super().cmdloop()
+        return self.player
+
+    def precmd(self, line: str):
+        '''Assure case-insensitivity'''
+        return line.lower()
 
     def preloop(self):
-        '''Display menu and chosen player when menu is entered'''
-        self.onecmd(line="chosen")
+        '''Display menu and current player when menu is entered'''
+        self.onecmd(line="current")
         print(self.menu_message)
 
-    def chosen_player(self):
-        '''Return chosen player'''
+    def current_player(self):
+        '''Return currrent player'''
         if self.player == None:
             return "\nNo player chosen"
         else:
-            return f"\nChosen player: {self.player}"
+            return f"\nCurrent player: {self.player}"
 
-    def do_chosen(self, line):
-        '''Display chosen player'''
-        print(self.chosen_player())
+    def do_current(self, line):
+        '''Display current player'''
+        print(self.current_player())
 
     def do_menu(self, line):
         '''Display menu'''
@@ -47,21 +55,20 @@ exit - Return to main menu"""
 
     def do_choose(self, line):
         '''Open an existing player profile'''
-        self.player = "test"
-        self.onecmd(line="chosen")
+        self.player = input("Please enter the player name: ")
+        # Assign a call to open_player() to self.player
+        self.onecmd(line="current")
     
     def do_create(self, line):
         '''Create a new player profile'''
-
-    def do_change(self, line):
-        '''Change current player profile'''
-        self.player = None
-        self.onecmd(line="choose")
+        # Call Player constructor
+        # Set self.player to new player
+        return self.player
 
     def do_exit(self, line):
-        '''Return to main menu'''
+        '''Return to main menu after player was chosen'''
         if self.player == None:
             print("\nChoose or create a player to continue")
-            return
+            return self.player
         else:
             return True
