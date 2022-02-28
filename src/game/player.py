@@ -4,7 +4,7 @@ class player:
     
     player_list = []
     
-    def __init__(self, player_id):
+    def __init__(self, player_id,):
         '''construct player object'''
         self.player_id = player_id
         self.rounds_played = 0
@@ -15,6 +15,7 @@ class player:
         self.total_wins = 0
     
     def set_player_list(self, player_list):
+        '''assign player list, will maybe be replaces by file'''
         self.player_list = player_list
     
     def check_player_id(self, player_id, player_list):
@@ -23,7 +24,6 @@ class player:
             return "Welcome back {self.player_id}!"
         else: 
             return "Welcome new player {self.player_id}!"
-
     
     def add_player(self, player_id):
         '''add new player to a file of players, for now it is written as a list'''
