@@ -1,10 +1,11 @@
-import itertools, card
+import itertools, card, cardHand, random
 
 class Deck:
     def __init__(self):
-        self.deck = set()
-        figures = ["J", "Q", "K", "A"]
-        suits = ["\u2665", "\u2660", "\u2666", "\u2663"]
+        figs, suits = ["J", "Q", "K", "A"], ["\u2665", "\u2660", "\u2666", "\u2663"]
 
-        for suit, number in itertools.product(range(4), range(2, 15)):
-            self.deck.add(card.Card(figures[number-11] if number in range(11, 15) else number, suits[suit], number))
+        self.deck = [card.Card(figs[num-11] if num in range(11, 15) else num, suits[suit], num) for suit, num in itertools.product(range(4), range(2, 15))]
+        random.shuffle(self.deck)
+
+
+def deal_cards(deck): return cardHand.CardHand(deck, 0).cardHand, cardHand.CardHand(deck, 1).cardHand
