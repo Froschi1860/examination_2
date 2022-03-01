@@ -1,6 +1,6 @@
 
 
-class player:   
+class Player:   
     
     player_list = []
     
