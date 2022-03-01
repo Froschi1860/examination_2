@@ -1,4 +1,4 @@
-import cmd
+import cmd, player
 
 
 class PlayerMenu(cmd.Cmd):
@@ -16,6 +16,7 @@ Please choose one of the folowing options:
 choose - Open an existing player profile
 create - Create a new player profile
 current - Display current Player
+id - Change name of current player
 menu - Display menu
 exit - Return to main menu"""
 
@@ -49,20 +50,35 @@ exit - Return to main menu"""
         '''Display current player'''
         print(self.current_player())
 
+    def do_id(self, line):
+        '''Change id of current player'''
+        new_player_name = input("Please enter the new id: ")
+        while player.check_player_id(new_player_name):
+            print("A player with the chosen id already exists")
+            new_player_name = input("Please enter the new id: ")
+        self.player = self.player.change_player_id(new_player_name)
+        return self.player
+
     def do_menu(self, line):
         '''Display menu'''
         self.preloop()
 
     def do_choose(self, line):
         '''Open an existing player profile'''
-        self.player = input("Please enter the player name: ")
-        # Assign a call to open_player() to self.player
+        player_name = input("Please enter the player name: ")
+        if not player.check_player_id(player_name):
+            print("The chosen player does not exist")
+        else:
+            self.player = player.choose_player()
         self.onecmd(line="current")
     
     def do_create(self, line):
         '''Create a new player profile'''
-        # Call Player constructor
-        # Set self.player to new player
+        new_player_name = input("Please enter the name of the new player: ")
+        while player.check_player_id(new_player_name):
+            print("A player with this name already exists.")
+            new_player_name = input("Please enter the name of the new player: ")
+        self.player = player.Player(new_player_name)
         return self.player
 
     def do_exit(self, line):
