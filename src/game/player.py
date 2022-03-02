@@ -1,15 +1,13 @@
-
-
-class Player:   
-    
+class player:  
+  
     player_list = []
     
-    def __init__(self, player_id,):
+    def __init__(self, player_id):
         '''construct player object'''
         self.player_id = player_id
         self.rounds_played = 0
         self.total_rounds = 0
-        self.games_played =0
+        self.games_played = 0
         self.total_games = 0
         self.games_won = 0 
         self.total_wins = 0
