@@ -8,4 +8,4 @@ class Deck:
         random.shuffle(self.deck)
 
 
-def deal_cards(deck): return cardHand.CardHand(deck, 0).cardHand, cardHand.CardHand(deck, 1).cardHand
+    def deal_cards(deck): return cardHand.CardHand(deck, 0).cardHand, cardHand.CardHand(deck, 1).cardHand
