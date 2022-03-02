@@ -1,39 +1,33 @@
 
-
-class player:   
+class Player:   
     
-    player_list = []
-    
-    def __init__(self, player_id,):
-        '''construct player object'''
+    def __init__(self, player_id, last_rounds_played = 0, total_rounds_played = 0, games_played = 0, last_game_won = False, total_games_won = 0):
+        '''construct player object, defaults set so that player info can be overrided as they increase their stats'''
         self.player_id = player_id
-        self.rounds_played = 0
-        self.total_rounds = 0
-        self.games_played =0
-        self.total_games = 0
-        self.games_won = 0 
-        self.total_wins = 0
+        self.last_rounds_played = last_rounds_played
+        self.total_rounds_played = total_rounds_played
+        self.games_played = games_played
+        self.last_game_won = last_game_won
+        self.total_games_won = total_games_won
+        
     
     def set_player_list(self, player_list):
         '''assign player list, will maybe be replaces by file'''
         self.player_list = player_list
+        
     
     def check_player_id(self, player_id, player_list):
         '''read a file of exisitng players, but for now I have it as a list'''
         if self.player_id in self.player_list:
-            return "Welcome back {self.player_id}!"
+            return True
         else: 
-            return "Welcome new player {self.player_id}!"
+            return False
+    
     
     def add_player(self, player_id):
         '''add new player to a file of players, for now it is written as a list'''
         self.player_list = self.player_list.append(player_id)
         return self.player_list
-    
-    def change_player_id(self, new_player_id):
-        '''allow a player to change their name'''
-        self.player_id = new_player_id
-        return new_player_id
     
     def play_round(self):
         '''adds a round played to the player's stats (maybe better suited for the game class)'''
@@ -64,4 +58,20 @@ class player:
         '''adds total number of individual wins to the player's stats'''
         self.total_wins =+ self.games_won
         return self.total_wins
-    
+
+def check_player_id(self, player_id, player_list):
+    '''read a file of exisitng players, but for now I have it as a list'''
+    if self.player_id in self.player_list:
+        return True
+    else: 
+        return False
+
+def change_player_id(self, new_player_id):
+    '''returns a player object
+    self.player_id = new_player_id
+    return self.player_id'''
+
+def choose_player(player_id):
+        '''open file, player_list.txt retreive info for player use index values for constructor'''
+        Player(player_id) 
+        

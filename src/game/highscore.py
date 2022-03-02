@@ -1,7 +1,7 @@
 import player
 
 class Highscore:
-    def __init__(self,):
+    def __init__(self):
         self.scoreList = []
  
  #im sure this code is not right, just working on figureing out how to structure this class
