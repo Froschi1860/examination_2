@@ -3,6 +3,8 @@ class Card:
         self.number = number
         self.suit = suit
         self.value = value
+        self.ascii_card = f"""┌─────────┐\n| {self.suit}       |\n|         |\n|         |\n|    {self.number:<2}   |\n|         |\n|         |\n|       {self.suit} |\n└─────────┘"""
+        self.ascii_hidden = f"""┌─────────┐\n|#########|\n|#########|\n|#########|\n|#########|\n|#########|\n|#########|\n|#########|\n└─────────┘"""
 
     def __str__(self):
-        return f"{self.suit} {self.number}"
+        return self.ascii_card

@@ -1,4 +1,3 @@
-
 class Player:   
     
     def __init__(self, player_id, last_rounds_played = 0, total_rounds_played = 0, games_played = 0, last_game_won = False, total_games_won = 0):
@@ -9,19 +8,6 @@ class Player:
         self.games_played = games_played
         self.last_game_won = last_game_won
         self.total_games_won = total_games_won
-        
-    
-    def set_player_list(self, player_list):
-        '''assign player list, will maybe be replaces by file'''
-        self.player_list = player_list
-        
-    
-    def check_player_id(self, player_id, player_list):
-        '''read a file of exisitng players, but for now I have it as a list'''
-        if self.player_id in self.player_list:
-            return True
-        else: 
-            return False
     
     
     def add_player(self, player_id):
