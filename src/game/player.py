@@ -1,5 +1,5 @@
-class player:   
-    
+class player:  
+  
     player_list = []
     
     def __init__(self, player_id):

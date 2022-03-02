@@ -1,4 +1,3 @@
-/.venv
-/__pychache__
-/.idea
-/.ingame
+/.venv/
+/__pychache__/
+/.ingame/
