@@ -40,33 +40,20 @@ class Player:
             writer.writerow(player_stats)
             file.close()
 
-def update_player_stats(player_id,last_game_won, last_rounds_played, path = 'Plater_stats.csv'):
-    with open(path, 'r') as scoreboard:
-        dict_reader = csv.DictReader(scoreboard)
-        for row in dict_reader:
-            if player_id == row['Player ID']:
-                wins = int(row['Total Wins']) 
-                games = int(row['Total Games Played'])
-                rounds = int(row['Total Rounds Played'])
-    if last_game_won == True:
-        wins = wins + 1  
-    games = games + 1
-    rounds = rounds + last_rounds_played
-    
-    with open (path, 'a', newline='') as update_scorebord: 
-        
-        
-    # new_stats = Player(player_id=player_id, last_rounds_played=last_rounds_played, total_rounds_played=rounds, last_game_won=last_game_won, total_games_won=games)  
-    # return new_stats
-      
-
+    def update_player_stats(player_id,last_game_won, last_rounds_played, path = 'Plater_stats.csv'):    
+        with open(path, 'r') as scoreboard:
+            dict_reader = csv.DictReader(scoreboard)
+            for row in dict_reader:
+                if player_id == row['Player ID']:
+                    wins = int(row['Total Wins']) 
+                    games = int(row['Total Games Played'])
+                    rounds = int(row['Total Rounds Played'])
+                    
+        if last_game_won == True:
+            wins = wins + 1  
             
+        games = games + 1
+        rounds = rounds + last_rounds_played
         
-        def change_player_id(self, new_player_id):
-            '''returns a player object'''
-    
+        with open (path, 'a', newline='') as update_scorebord: 
 
-    def choose_player(player_id):
-        '''open file, player_list.txt retreive info for player use index values for constructor'''
-
-        return Player(player_id)
