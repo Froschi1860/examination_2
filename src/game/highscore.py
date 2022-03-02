@@ -1,18 +1,18 @@
-import player
+# import Player
+# import csv
 
-class Highscore:
-    def __init__(self):
-        self.scoreList = []
+
+# class Highscore:
+    #     def __init__(self):
+    #         self.playerList = []
  
- #im sure this code is not right, just working on figureing out how to structure this class
+        #  #im sure this code is not right, just working on figureing out how to structure this class
 
-def displayScorelist(player):
-    scoreList = []
-    scoreList.add = [player]
+# def displayHighscore(path):
+    
+    #     with open 
         
 
-# two seperate functions maybe, one to add the player and another to display everything 
+    # two seperate functions maybe, one to add the player and another to display everything 
 
-def displayHighScore(scoreList):
-     for player in scoreList:
-        print(player)
+#    def displayHighScore(scoreList):
