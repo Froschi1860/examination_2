@@ -1,5 +1,11 @@
+import Player 
 
-  
+class Game:
+    
+    def __init__(self, player1, player2):
+        self.player1 = player1
+        self.player2 = player2
+        
   
     # def get_total_rounds(self):
     #     '''adds total rounds played to the player's stats'''
