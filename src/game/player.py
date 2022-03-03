@@ -26,6 +26,8 @@ class Player:
         '''checks to see if the player already has stats'''
         with open(path, 'r') as file:
             reader = csv.reader(file, delimiter=",")
+            # Not sure if it works like this because it seems to return True/False once for each row
+            # Maybe use a variable to return in the loop, set it True if the player_id exists and return it after the loop?
             for row in reader:
                 if player_id == row[0]:
                     return True 
@@ -40,7 +42,12 @@ class Player:
             writer.writerow(player_stats)
             file.close()
 
-    def update_player_stats(player_id,last_game_won, last_rounds_played, path = 'Plater_stats.csv'):    
+    def update_player_stats(player_id,last_game_won, last_rounds_played, path = 'Plater_stats.csv'):
+        # Not sure if I´m correct about this but is it even necessary to read the file in this function?
+        # The function is called in the end of a game where two player objects already exist in the program
+        # and both need to be updated -> Both should then already have the current instance variables at the
+        # state before the game -> Then the function would need to update the variables that are already ints
+        # and override the data in the file
         with open(path, 'r') as scoreboard:
             dict_reader = csv.DictReader(scoreboard)
             for row in dict_reader:
@@ -54,6 +61,9 @@ class Player:
             
         games = games + 1
         rounds = rounds + last_rounds_played
-        
+        # Maybe to override the file it is necessary to create a new temoprary file holding the updated 
+        # data, then to delete the original file and lastly to rename the temorary file -> As described 
+        # in the Python coursbook
+        # Or maybe there is a better option in the csv module but I don´t know that one too well yet
         with open (path, 'a', newline='') as update_scorebord: 
 
