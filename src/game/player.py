@@ -8,11 +8,12 @@ from csv import DictWriter
 #     with open (filename, 'w') as file: 
 #         writer = csv.writer(file)
 #         writer.writerow(header)
-
+player_list = []
 
 class Player:
     
-    def __init__(self, player_id, last_rounds_played=0, total_rounds_played=0, games_played=0, last_game_won=False, total_games_won=0):
+    def __init__(self, player_id, last_rounds_played=0, total_rounds_played=0, games_played=0, 
+                 last_game_won=False, total_games_won=0):
         '''construct player object, defaults set so that player info can be overrided as they increase their stats'''
         self.player_id = player_id
         self.last_rounds_played = last_rounds_played
@@ -22,48 +23,68 @@ class Player:
         self.total_games_won = total_games_won
 
 
-    def check_player_id(self, player_id, path ='Player_stats.csv'):
+    def check_player_id(self, player_id):
         '''checks to see if the player already has stats'''
-        with open(path, 'r') as file:
-            reader = csv.reader(file, delimiter=",")
-            # Not sure if it works like this because it seems to return True/False once for each row
-            # Maybe use a variable to return in the loop, set it True if the player_id exists and return it after the loop?
-            for row in reader:
-                if player_id == row[0]:
-                    return True 
+
+        for player in player_list:
+            for val in player:
+                if val == player_id:
+                    return True
+
                 else:
-                    return False 
+                    return False
+        # with open(path, 'r') as file:
+        #     reader = csv.reader(file, delimiter=",")
+        #     for row in reader:
+        #         if player_id == row[0]:
+        #             return True 
+        #         else:
+        #             return False 
 
-    def add_player(self, player_id, path = 'Player_stats.csv',):
-        '''adds a player to the player stats file'''
-        player_stats = [player_id,self.total_games_won, self.games_played, self.total_rounds_played]
-        with open(path, 'a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(player_stats)
-            file.close()
+    def add_player(self, player_id):
+        '''adds a player to the player stats file/list'''
+        player_stats = {'Player ID': player_id,'Total Games Won': self.total_games_won, 
+                        'Total Games Played' :self.games_played, 'Total Rounds Played': self.total_rounds_played, 
+                        'Last Game Won': False, 'Last Rounds Played': self.last_rounds_played}
+        player_list.append(player_stats)
+        # with open(path, 'a', newline='') as file:
+        #     writer = csv.writer(file)
+        #     writer.writerow(player_stats)
+        #     file.close()
 
-    def update_player_stats(player_id,last_game_won, last_rounds_played, path = 'Plater_stats.csv'):
-        # Not sure if I´m correct about this but is it even necessary to read the file in this function?
-        # The function is called in the end of a game where two player objects already exist in the program
-        # and both need to be updated -> Both should then already have the current instance variables at the
-        # state before the game -> Then the function would need to update the variables that are already ints
-        # and override the data in the file
-        with open(path, 'r') as scoreboard:
-            dict_reader = csv.DictReader(scoreboard)
-            for row in dict_reader:
-                if player_id == row['Player ID']:
-                    wins = int(row['Total Wins']) 
-                    games = int(row['Total Games Played'])
-                    rounds = int(row['Total Rounds Played'])
-                    
-        if last_game_won == True:
-            wins = wins + 1  
-            
-        games = games + 1
-        rounds = rounds + last_rounds_played
-        # Maybe to override the file it is necessary to create a new temoprary file holding the updated 
-        # data, then to delete the original file and lastly to rename the temorary file -> As described 
-        # in the Python coursbook
-        # Or maybe there is a better option in the csv module but I don´t know that one too well yet
-        with open (path, 'a', newline='') as update_scorebord: 
+    def update_player_stats(self, player_id): 
+        '''update player object as well as the player dictionary in the list'''
+        if self.last_game_won == True:
+            add_game = 1
+        else:
+            add_game = 0
+               
+        for player in player_list:
+            for val in player:
+                if val == player_id:
+                    self.last_game_won = False
+                    self.games_played =+ 1
+                    self.total_rounds_played += self.last_rounds_played
+                    player['Total Games Played'] = self.games_played 
+                    player['Total Rounds Played'] += self.total_rounds_played
+                    player['Total Games Won'] += add_game
+                    player['Last Game Won'] = self.last_game_won
+                    self.last_rounds_played = 0 
+                    player['Last Rounds Played'] = self.last_rounds_played
+    
+    
+        # with open(path, 'r') as scoreboard: 
+        #     dict_reader = csv.DictReader(scoreboard)
+        #     for row in dict_reader:
+        #         if player_id == row['Player ID']:
+        #             wins = int(row['Total Wins']) 
+        #             games = int(row['Total Games Played'])
+        #             rounds = int(row['Total Rounds Played'])
+   
 
+def choose_player(player_id):
+    for player in player_list:
+            for val in player:
+                if val == player_id:
+                    Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'],    )
+    return Player(player_id)
