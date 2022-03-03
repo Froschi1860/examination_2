@@ -65,5 +65,5 @@ class Player:
         # data, then to delete the original file and lastly to rename the temorary file -> As described 
         # in the Python coursbook
         # Or maybe there is a better option in the csv module but I don´t know that one too well yet
-        with open (path, 'a', newline='') as update_scorebord: 
+        #with open (path, 'a', newline='') as update_scorebord: 
 

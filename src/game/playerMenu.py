@@ -18,9 +18,9 @@ current - Display current Player
 menu - Display menu
 exit - Return to main menu"""
 
-    def __init__(self, completekey='tab', stdin=None, stdout=None, player: player=None, test_mode=False, test_cmd=""):
+    def __init__(self, player: player=None, test_mode=False, test_cmd=""):
         '''Initialise a PlayerMenu object and enable test mode for cmdloop()'''
-        super().__init__(completekey, stdin, stdout)
+        super().__init__()
         self.player = player
         self.test_mode = test_mode
         self.test_cmd = test_cmd
