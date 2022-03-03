@@ -1,18 +1,14 @@
-# import Player
-# import csv
+import Player
 
-
-# class Highscore:
-    #     def __init__(self):
-    #         self.playerList = []
- 
-        #  #im sure this code is not right, just working on figureing out how to structure this class
-
-# def displayHighscore(path):
+class Highscore:
     
-    #     with open 
-        
-
-    # two seperate functions maybe, one to add the player and another to display everything 
-
-#    def displayHighScore(scoreList):
+    format = '''HIGHSCORE RESULTS:\n
+    ------------------------'''
+    
+    def __init__(self, player_list):
+        self.player_list = player_list
+    
+    def sort_score_results(self):
+        return sorted(self.player_list, key=lambda x: x['Total Games Won'])
+  
+    
