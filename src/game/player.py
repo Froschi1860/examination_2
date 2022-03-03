@@ -25,10 +25,12 @@ class Player:
 
     def check_player_id(self, player_id):
         '''checks to see if the player already has stats'''
+
         for player in player_list:
             for val in player:
                 if val == player_id:
                     return True
+
                 else:
                     return False
         # with open(path, 'r') as file:
