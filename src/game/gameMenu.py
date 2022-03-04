@@ -23,7 +23,7 @@ exit - Return to main menu"""
         if player_2 == None:
             self.player_2 = player.choose_player("com")
         else:
-            self.player_2= player_2
+            self.player_2 = player_2
         self.test_mode = test_mode
         self.test_cmd = test_cmd
         self.setup = setup
@@ -47,7 +47,7 @@ exit - Return to main menu"""
 
     def do_start(self, line):
         '''Start a new game with current setup'''
-        new_game = game.Game(player_1=self.player_1, player_2=self.player_2, difficulty=self.setup[2])
+        new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
         new_game.play()
 
     def do_setup(self, line):

@@ -61,6 +61,7 @@ exit - Return to main menu"""
             print(f"A player with the id {new_player_id} already exists.")
         else:
             self.player = player.Player(new_player_id)
+            self.player.add_player()
 
     def do_id(self, line):
         '''Change id of current player'''
@@ -72,7 +73,7 @@ exit - Return to main menu"""
         elif player.check_player_id(new_player_id):
             print(f"A player with the id {new_player_id} already exists")
         else:
-            self.player = player.change_player_id(new_player_id)
+            self.player.change_player_id(new_player_id)
 
     def do_current(self, line):
         '''Display current player'''
@@ -91,6 +92,3 @@ exit - Return to main menu"""
             print("\nChoose or create a player to continue")
         else:
             return True
-
-    def do_test(self, line):
-        print(line)
