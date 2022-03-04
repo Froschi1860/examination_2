@@ -82,8 +82,9 @@ welcome_message = """\nWelcome to war! How about a game of cards?
 ------------------------------------------"""
 
 def main():
-    '''Initialize the game interface and welcome user'''
+    '''Initialize the game and welcome user'''
     print(welcome_message)
+    #player.read_player_data(player.player_list)
     MainMenu().cmdloop()
     print("Thank you for playing!")
 
