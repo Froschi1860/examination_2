@@ -1,7 +1,6 @@
 '''This class constructs a player and adds them to a list of dictionaries which contains information about each player object.
 This allows the user to select a player, make a new player, or even change the name of their already saved player'''
 
-
 player_list = []
 
 
@@ -36,6 +35,7 @@ class Player:
                         'Total Games Played' :self.games_played, 'Total Rounds Played': self.total_rounds_played, 
                         'Last Game Won': False, 'Last Rounds Played': self.last_rounds_played}
         player_list.append(player_stats)
+        return player_list
     
     
     def change_player_name(self,new_player_id):
@@ -44,6 +44,8 @@ class Player:
                 if val == self.player_id:
                     player['Player ID'] = new_player_id
             self.player_id = new_player_id
+        
+        return player_list
         
         
     def update_player_stats(self, player_id): 
@@ -65,6 +67,8 @@ class Player:
                     player['Last Game Won'] = self.last_game_won
                     self.last_rounds_played = 0 
                     player['Last Rounds Played'] = self.last_rounds_played
+        
+        return player_list
 
 def choose_player(player_id):
     for player in player_list:
@@ -74,3 +78,6 @@ def choose_player(player_id):
                     total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
                     last_game_won=False, total_games_won= player['Total Games Won'])
     return selected_player
+
+def retreive_list():
+    return player_list
