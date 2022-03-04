@@ -44,9 +44,12 @@ exit - Return to main menu"""
 
     def do_choose(self, line):
         '''Open an existing player profile and display chosen player'''
-        player_id = line
+        player_id = line.split()[0]
         if player_id == "":
             print("Enter a player id to choose a player: choose <player_id>")
+        # Write test case
+        elif player_id == "com":
+            print("The computer can not be chosen as player")
         elif not player.check_player_id(player_id):
             print(f"The player with the id {player_id} does not exist")
         else:
@@ -72,6 +75,7 @@ exit - Return to main menu"""
         elif player.check_player_id(new_player_id):
             print(f"A player with the id {new_player_id} already exists")
         else:
+            # Change test case
             self.player_1.change_player_id(new_player_id)
 
     def do_current(self, line):

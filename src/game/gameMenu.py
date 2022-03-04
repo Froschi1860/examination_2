@@ -21,7 +21,8 @@ exit - Return to main menu"""
         super().__init__()
         self.player_1 = player_1 
         if player_2 == None:
-            self.player_2 = player.choose_player("com")
+            #self.player_2 = player.choose_player("com")
+            self.player_2 = player.Player(player_id="com")
         else:
             self.player_2 = player_2
         self.test_mode = test_mode
@@ -58,7 +59,13 @@ exit - Return to main menu"""
             self.setup = ("pvc", "com")
         elif len(args) <= 2 and args[0] == "pvp":
             player_2_id = args[1]
-            # If player_2_id exists choose them otherwise create a new player and set set self.player_2
+            if player.check_player_id(player_2_id):
+                self.player_2 = player.choose_player(player_2_id)
+                print(f"Player 2 was set to {self.player_2}")
+            else:
+                self.player_2 = player.Player(player_id=player_2_id)
+                print(f"Player {self.player_2} was created and set to player 2")
+            self.setup = ("pvp", player_2_id)
         else:
             print(invalid_input_msg)
 
@@ -68,11 +75,7 @@ exit - Return to main menu"""
             mode = "player vs computer"
         else:
             mode = "player vs player"
-        if self.setup[1] == "com":
-            player_2 = "Computer"
-        else:
-            player_2 = self.setup[1]
-        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {player_2}")
+        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {self.player_2}")
 
     def do_menu(self, line):
         '''Display menu'''
