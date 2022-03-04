@@ -1,4 +1,4 @@
-import cmd, playerMenu
+import cmd, playerMenu, gameMenu
 
 
 class MainMenu(cmd.Cmd):
@@ -19,21 +19,23 @@ current - Display current player
 menu - Display menu
 end - End the programme"""
 
-    def __init__(self, completekey:str=None, stdin=None, player=None, stdout=None, test_mode=False, test_cmd=""):
+    def __init__(self, player_1=None, player_2=None, test_mode=False, test_cmd="", setup=("pvc", "com")):
         '''Initialise a mainMenu object and enable test_mode for cmdloop'''
-        super().__init__(completekey, stdin, stdout)
-        self.player = player
+        super().__init__()
+        self.player_1 = player_1
+        self.player_2 = player_2
         self.test_mode = test_mode
         self.test_cmd = test_cmd
+        self.setup = setup
 
 
     def cmdloop(self):
-        '''Start menu and enforce player choice at beginning in game mode'''
+        '''Run menu and enforce player choice at beginning in game mode'''
         if self.test_mode:
             self.onecmd(self.test_cmd)
             self.onecmd("end")
         else:
-            if self.player == None:
+            if self.player_1 == None:
                 print("\nPlease choose or create a player to start")
                 self.onecmd(line="player")
             super().cmdloop()
@@ -48,11 +50,12 @@ end - End the programme"""
 
     def do_player(self, line):
         '''Open the player menu'''
-        self.player = playerMenu.PlayerMenu(player=self.player).cmdloop()
+        self.player_1 = playerMenu.PlayerMenu(player_1=self.player_1).cmdloop()
 
     def do_game(self, line):
         '''Set up and start a new game'''
-        return
+        game_menu = gameMenu.GameMenu(player_1=self.player_1, player_2=self.player_2, setup=self.setup)
+        self.setup, self.player_2 = game_menu.cmdloop()
 
     def do_highscore(self, line):
         '''Display player statistics'''
@@ -64,7 +67,7 @@ end - End the programme"""
 
     def do_current(self, line):
         '''Display current player'''
-        print(f"\nCurrent player: {self.player}")
+        print(f"\nCurrent player: {self.player_1}")
 
     def do_menu(self, line):
         '''Display menu'''
