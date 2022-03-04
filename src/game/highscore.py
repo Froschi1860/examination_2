@@ -22,8 +22,8 @@ class Highscore:
     def display_highscore(scoreboard):
         header = '''HIGHSCORE RESULTS:\n
                     ------------------------\n
-                    PLAYER    | TOTAL WINS | TOTAL ROUNDS | 
-                    ---------------------------------------'''
+                    PLAYER    | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
+                    ------------------------------------------------------------------'''
         print(header,)
         for player in scoreboard:
-            return f'{player[0:3]}'
+            return f'{player[0:4]}'
