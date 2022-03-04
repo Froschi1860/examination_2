@@ -1,5 +1,5 @@
 
-import Player
+import player
 
 class Highscore:
     

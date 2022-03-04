@@ -21,12 +21,11 @@ class Player:
     def check_player_id(self, player_id):
         '''checks to see if the player already has stats'''
         for player in player_list:
-            for val in player:
-                if val == player_id:
-                    return True
-
-                else:
-                    return False
+            if player['Player ID'] == player_id:
+                return_value = True 
+            else:
+                return_value = False
+        return return_value 
 
 
     def add_player(self):
@@ -35,17 +34,13 @@ class Player:
                         'Total Games Played' :self.games_played, 'Total Rounds Played': self.total_rounds_played, 
                         'Last Game Won': False, 'Last Rounds Played': self.last_rounds_played}
         player_list.append(player_stats)
-        return player_list
+
     
-    
-    def change_player_name(self,new_player_id):
+    def change_player_id(self,new_player_id):
         for player in player_list:
-            for val in player:
-                if val == self.player_id:
-                    player['Player ID'] = new_player_id
-            self.player_id = new_player_id
-        
-        return player_list
+            if player['Player ID'] == self.player_id:
+                player['Player ID'] = new_player_id
+        self.player_id = new_player_id
         
         
     def update_player_stats(self, player_id): 
@@ -56,27 +51,24 @@ class Player:
             add_game = 0
                
         for player in player_list:
-            for val in player:
-                if val == player_id:
-                    self.last_game_won = False
-                    self.games_played =+ 1
-                    self.total_rounds_played += self.last_rounds_played
-                    player['Total Games Played'] = self.games_played 
-                    player['Total Rounds Played'] += self.total_rounds_played
-                    player['Total Games Won'] += add_game
-                    player['Last Game Won'] = self.last_game_won
-                    self.last_rounds_played = 0 
-                    player['Last Rounds Played'] = self.last_rounds_played
-        
-        return player_list
+            if player['Player ID'] == player_id:
+                self.last_game_won = False
+                self.games_played =+ 1
+                self.total_rounds_played += self.last_rounds_played
+                player['Total Games Played'] = self.games_played 
+                player['Total Rounds Played'] += self.total_rounds_played
+                player['Total Games Won'] += add_game
+                player['Last Game Won'] = self.last_game_won
+                self.last_rounds_played = 0 
+                player['Last Rounds Played'] = self.last_rounds_played
+
 
 def choose_player(player_id):
     for player in player_list:
-            for val in player:
-                if val == player_id:
-                    selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
-                    total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
-                    last_game_won=False, total_games_won= player['Total Games Won'])
+        if player['Player ID'] == player_id:
+                selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
+                total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
+                last_game_won=False, total_games_won= player['Total Games Won'])
     return selected_player
 
 def retreive_list():
