@@ -11,7 +11,7 @@ class Game:
     def print_card(self, p1_card, p2_card, print_info, pot):
         self.check_winner(self.p1_hand, self.p2_hand)
         p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
-        print(f"\n{'Player 1':<12}|{' Player 2':<12}\n------------|------------" if print_info else "")
+        print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2}':<12}\n------------|------------" if print_info else "")
         l1 = p1_card.ascii_card.split('\n')
         l2 = p2_card.ascii_card.split('\n')
         for i in range(min(len(l1), len(l2))):

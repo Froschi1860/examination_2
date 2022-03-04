@@ -16,16 +16,7 @@ class Player:
         self.games_played = games_played
         self.last_game_won = last_game_won
         self.total_games_won = total_games_won
-
-
-    def check_player_id(self, player_id):
-        '''checks to see if the player already has stats'''
-        for player in player_list:
-            if player['Player ID'] == player_id:
-                return_value = True 
-            else:
-                return_value = False
-        return return_value 
+        self.add_player()
 
 
     def add_player(self):
@@ -62,14 +53,25 @@ class Player:
                 self.last_rounds_played = 0 
                 player['Last Rounds Played'] = self.last_rounds_played
 
+    
+    def __str__(self):
+        return f"{self.player_id}"
+
 
 def choose_player(player_id):
+    selected_player = None
     for player in player_list:
         if player['Player ID'] == player_id:
                 selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
                 total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
                 last_game_won=False, total_games_won= player['Total Games Won'])
+                selected_player.add_player()
     return selected_player
 
-def retreive_list():
-    return player_list
+def check_player_id(player_id):
+    '''checks to see if the player already has stats'''
+    return_value = False
+    for player in player_list:
+        if player['Player ID'] == player_id:
+            return_value = True
+    return return_value 

@@ -1,4 +1,4 @@
-import cmd, playerMenu, gameMenu
+import cmd, playerMenu, gameMenu, highscore, player
 
 
 class MainMenu(cmd.Cmd):
@@ -59,7 +59,7 @@ end - End the programme"""
 
     def do_highscore(self, line):
         '''Display player statistics'''
-        return "highscore"
+        highscore.Highscore(player.player_list).display_highscore()
 
     def do_rules(self, line):
         '''Display the game rules'''

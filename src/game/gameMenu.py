@@ -19,7 +19,7 @@ exit - Return to main menu"""
 
     def __init__(self, player_1, player_2, test_mode=False, test_cmd="", setup=("pvc", "com")):
         super().__init__()
-        self.player_1 = player_1
+        self.player_1 = player_1 
         if player_2 == None:
             self.player_2 = player.choose_player("com")
         else:
@@ -48,7 +48,7 @@ exit - Return to main menu"""
     def do_start(self, line):
         '''Start a new game with current setup'''
         new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
-        new_game.play()
+        new_game.start()
 
     def do_setup(self, line):
         '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp was chosen'''
