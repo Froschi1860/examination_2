@@ -158,15 +158,14 @@ class TestPlayerMenu(unittest.TestCase):
         self.assertEqual(printed_output, "The player with the id non_existant does not exist\n")
         self.assertEqual(menu.player_1, test_player)
 
-    # def test_do_choose_with_existing_player_and_initialised_player(self):
-    #     '''Assert equality of initialised player and sucessfully chosen player'''
-    #     # Fails because there is no player_1 in file yet
-    #     test_player_1 = player.Player("test")
-    #     test_player_2 = player.Player("player_1")
-    #     test_player_2.add_player()
-    #     menu = playerMenu.PlayerMenu(player_1=test_player_1)
-    #     menu.do_choose("player_1")
-    #     self.assertEqual(menu.player_1.player_id, test_player_2.player_id)
+    def test_do_choose_with_existing_player_and_initialised_player(self):
+        '''Assert equality of initialised player and sucessfully chosen player'''
+        test_player_1 = player.Player("test_player_1")
+        test_player_2 = player.Player("test_player_2")
+        test_player_2.add_player()
+        menu = playerMenu.PlayerMenu(player_1=test_player_1)
+        menu.do_choose("test_player_2")
+        self.assertEqual(menu.player_1.player_id, test_player_2.player_id)
 
 
     # Test do_create()
@@ -182,27 +181,25 @@ class TestPlayerMenu(unittest.TestCase):
         self.assertEqual(printed_output, "Enter a player id to create a player: create <player_id>\n")
         self.assertEqual(menu.player_1, test_player)
 
-    # def test_do_create_with_existing_player_and_initialised_player(self):
-    #     '''Assert correct print of error message and unchanged current player'''
-    #     # Fails because there is no player_1 in file yet
-    #     test_player = player.Player("test")
-    #     menu = playerMenu.PlayerMenu(player_1=test_player)
-    #     captured_output = io.StringIO()
-    #     sys.stdout = captured_output
-    #     menu.do_create("player_1")
-    #     sys.stdout = sys.__stdout__
-    #     printed_output = captured_output.getvalue()
-    #     self.assertEqual(printed_output, "A player with the id player_1 already exists.\n")
-    #     self.assertEqual(menu.player_1, test_player)
+    def test_do_create_with_existing_player_and_initialised_player(self):
+        '''Assert correct print of error message and unchanged current player'''
+        test_player = player.Player("test_player")
+        existing_player = player.Player("existing")
+        menu = playerMenu.PlayerMenu(player_1=test_player)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        menu.do_create("existing")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "A player with the id existing already exists.\n")
+        self.assertEqual(menu.player_1.player_id, "test_player")
 
-    # def test_do_create_with_non_existing_player_and_initialised_player(self):
-    #     '''Assert equality of current player and succesfully created player'''
-    #     # Fails because of add_player() in player constructor
-    #     test_player = player.Player("test")
-    #     non_existant = player.Player("non_existant")
-    #     menu = playerMenu.PlayerMenu(player_1=test_player)
-    #     menu.do_create("non_existant")
-    #     self.assertEqual(menu.player_1.player_id, non_existant.player_id)
+    def test_do_create_with_non_existing_player_and_initialised_player(self):
+        '''Assert equality of current player and succesfully created player'''
+        test_player = player.Player("test_player")
+        menu = playerMenu.PlayerMenu(player_1=test_player)
+        menu.do_create("non_existant")
+        self.assertEqual(menu.player_1.player_id, "non_existant")
 
 
     # Test do_id()
@@ -229,18 +226,18 @@ class TestPlayerMenu(unittest.TestCase):
         self.assertEqual(printed_output, "Choose or create a player before changing the id\n")
         self.assertIsNone(menu.player_1)
 
-    # def test_do_id_with_existing_player_as_arg_and_initialised_player(self):
-    #     '''Assert correct print of error message and unchanged current player'''
-    #     # Fails because player_1 does not exist in file
-    #     test_player = player.Player("test")
-    #     menu = playerMenu.PlayerMenu(player_1=test_player)
-    #     captured_output = io.StringIO()
-    #     sys.stdout = captured_output
-    #     menu.do_id("player_1")
-    #     sys.stdout = sys.__stdout__
-    #     printed_output = captured_output.getvalue()
-    #     self.assertEqual(printed_output, "A player with the id player_1 already exists\n")
-    #     self.assertEqual(menu.player, test_player)
+    def test_do_id_with_existing_player_as_arg_and_initialised_player(self):
+        '''Assert correct print of error message and unchanged current player'''
+        test_player = player.Player("test_player")
+        existing_player = player.Player("existing")
+        menu = playerMenu.PlayerMenu(player_1=test_player)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        menu.do_id("existing")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "A player with the id existing already exists\n")
+        self.assertEqual(menu.player_1.player_id, "test_player")
 
     def test_do_id_with_non_existing_player_as_arg_and_initialised_player(self):
         '''Assert successful change of id of current player'''

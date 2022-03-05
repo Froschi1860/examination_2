@@ -3,6 +3,8 @@ import unittest, gameMenu, player, game, io, sys
 
 
 class TestGameMenu(unittest.TestCase):
+    '''Tests for module gameMenu.py'''
+
     # Test constructor
     def test_init_without_player_2(self):
         '''Test initialisation with one player and default setup'''
