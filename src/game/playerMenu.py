@@ -64,6 +64,10 @@ exit - Return to main menu"""
             self.player_1 = player.Player(args[0])
         else:
             print("Enter a player id to create a player: create <player_id>")
+            self.player_1 = player.Player(new_player_id)
+            #adding the new player method here
+            player.add_player(new_player_id)
+
 
     def do_id(self, line):
         '''Change id of current player'''
