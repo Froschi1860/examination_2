@@ -19,11 +19,12 @@ class Highscore:
         
         return scoreboard
 
-    def display_highscore(scoreboard):
+    def display_highscore(self):
         header = '''HIGHSCORE RESULTS:\n
                     ------------------------\n
                     PLAYER    | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
                     ------------------------------------------------------------------'''
-        print(header,)
+        print(header)
+        scoreboard = self.sort_score_results()
         for player in scoreboard:
             return f'{player[0:4]}'
