@@ -93,7 +93,6 @@ class TestGameMenu(unittest.TestCase):
         self.assertEqual(test_gameMenu.player_2.player_id, "com")
         self.assertEqual(test_gameMenu.setup, ("pvc", "com"))
 
-
     def test_do_setup_with_args_pvc_and_extra_arg_and_one_player(self):
         '''Check if setup is correctly changed for mode pvc with wrong additional input'''
         com = player.Player("com")
@@ -103,6 +102,104 @@ class TestGameMenu(unittest.TestCase):
         self.assertEqual(test_gameMenu.player_2.player_id, "com")
         self.assertEqual(test_gameMenu.setup, ("pvc", "com"))
 
+    def test_do_setup_with_args_pvp_and_existing_player(self):
+        '''Check if setup and player 2 are correctly changed for mode pvp and existing player 2'''
+        test_player_1 = player.Player("test_player_1")
+        existing_test_player = player.Player("existing_test_player")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_setup("pvp existing_test_player")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(test_gameMenu.player_2.player_id, "existing_test_player")
+        self.assertEqual(printed_output, "Player 2 was set to existing_test_player\n")
+        self.assertEqual(test_gameMenu.setup, ("pvp", "existing_test_player"))
+
+    def test_do_setup_with_args_pvp_and_non_existing_player_plus_invalid(self):
+        '''Check if setup and player 2 are correctly changed for mode pvp and existing player 2'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_setup("pvp non_existing_test_player invalid")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(test_gameMenu.player_2.player_id, "non_existing_test_player")
+        self.assertEqual(printed_output, "Player non_existing_test_player was created and set to player 2\n")
+        self.assertEqual(test_gameMenu.setup, ("pvp", "non_existing_test_player"))
+
+    def test_do_setup_with_no_arg(self):
+        '''Check if correct error message is printed for no given arg'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_setup("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "\nThe inputs of arguments was invalid. Type help setup for instructions.\n")
+
+    def test_do_setup_with_invalid_arg(self):
+        '''Check if correct error message is printed for invalid arg'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_setup("invalid")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "\nThe inputs of arguments was invalid. Type help setup for instructions.\n")
+
+    
+    # Test do_current
+    def test_do_current_with_default_setup(self):
+        '''Check if current setup is displayed correctly for player vs computer'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_current("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Current setup: Game mode player vs computer " + 
+            "-> test_player_1 plays against com\n")
+
+    def test_do_current_with_setup_pvp_and_test_player_2(self):
+        '''Check if current setup is displayed correctly for player vs player'''
+        test_player_1 = player.Player("test_player_1")
+        test_player_2 = player.Player("test_player_2")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2,
+            setup=("pvp", "test_player_2"), test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_current("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Current setup: Game mode player vs player " + 
+        "-> test_player_1 plays against test_player_2\n")
+
+    
+    # test do_menu
+    def test_do_menu(self):
+        '''Assert if menu is printed correctly'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu.do_menu("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, test_gameMenu.menu_message + "\n")
+
+
+    # Test do_exit
+    def test_do_exit(self):
+        '''Check if do_exit returns True'''
+        test_player_1 = player.Player("test_player_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        res = test_gameMenu.do_exit("")
+        self.assertTrue(res)
 
 
 if __name__ == "__main__":
