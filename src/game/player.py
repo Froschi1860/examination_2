@@ -59,14 +59,13 @@ class Player:
 
 
 def choose_player(player_id):
-    selected_player = None
     for player in player_list:
         if player['Player ID'] == player_id:
                 selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
                 total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
                 last_game_won=False, total_games_won= player['Total Games Won'])
                 selected_player.add_player()
-    return selected_player
+                return selected_player
 
 def check_player_id(player_id):
     '''checks to see if the player already has stats'''
