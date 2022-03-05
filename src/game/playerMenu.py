@@ -67,6 +67,8 @@ exit - Return to main menu"""
             print(f"A player with the id {new_player_id} already exists.")
         else:
             self.player_1 = player.Player(new_player_id)
+            #adding the new player method here
+            player.add_player(new_player_id)
 
     def do_id(self, line):
         '''Change id of current player'''
