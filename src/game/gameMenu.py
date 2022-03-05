@@ -17,7 +17,7 @@ current - Display currrent setup
 menu - Display menu
 exit - Return to main menu"""
 
-    def __init__(self, player_1, player_2, test_mode=False, test_cmd="", setup=("pvc", "com")):
+    def __init__(self, player_1: player, player_2 : player=None, setup=("pvc", "com"), test_mode=False, test_cmd=""):
         super().__init__()
         self.player_1 = player_1 
         if player_2 == None:
@@ -49,15 +49,19 @@ exit - Return to main menu"""
     def do_start(self, line):
         '''Start a new game with current setup'''
         new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
-        new_game.start()
+        if self.test_mode:
+            return new_game
+        else:
+            new_game.start()
 
     def do_setup(self, line):
         '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp was chosen'''
         invalid_input_msg = "\nThe inputs of arguments was invalid. Type help setup for instructions."
         args = line.split()
-        if len(args) <= 1 and args[0] == "pvc":
+        if len(args) >= 1 and args[0] == "pvc":
             self.setup = ("pvc", "com")
-        elif len(args) <= 2 and args[0] == "pvp":
+            self.player_2 = player.choose_player("com")
+        elif len(args) >= 2 and args[0] == "pvp":
             player_2_id = args[1]
             if player.check_player_id(player_2_id):
                 self.player_2 = player.choose_player(player_2_id)
