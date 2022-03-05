@@ -1,4 +1,4 @@
-import cmd, playerMenu, gameMenu
+import cmd, playerMenu, gameMenu, highscore, player
 
 
 class MainMenu(cmd.Cmd):
@@ -59,7 +59,7 @@ end - End the programme"""
 
     def do_highscore(self, line):
         '''Display player statistics'''
-        return "highscore"
+        highscore.Highscore(player.player_list).display_highscore()
 
     def do_rules(self, line):
         '''Display the game rules'''
@@ -82,8 +82,9 @@ welcome_message = """\nWelcome to war! How about a game of cards?
 ------------------------------------------"""
 
 def main():
-    '''Initialize the game interface and welcome user'''
+    '''Initialize the game and welcome user'''
     print(welcome_message)
+    #player.read_player_data(player.player_list)
     MainMenu().cmdloop()
     print("Thank you for playing!")
 

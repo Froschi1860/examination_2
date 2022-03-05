@@ -17,11 +17,12 @@ current - Display currrent setup
 menu - Display menu
 exit - Return to main menu"""
 
-    def __init__(self, player_1, player_2, test_mode=False, test_cmd="", setup=("pvc", "com")):
+    def __init__(self, player_1: player, player_2 : player=None, setup=("pvc", "com"), test_mode=False, test_cmd=""):
         super().__init__()
-        self.player_1 = player_1
+        self.player_1 = player_1 
         if player_2 == None:
-            self.player_2 = player.choose_player("com")
+            #self.player_2 = player.choose_player("com")
+            self.player_2 = player.Player(player_id="com")
         else:
             self.player_2 = player_2
         self.test_mode = test_mode
@@ -48,17 +49,27 @@ exit - Return to main menu"""
     def do_start(self, line):
         '''Start a new game with current setup'''
         new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
-        new_game.play()
+        if self.test_mode:
+            return new_game
+        else:
+            new_game.start()
 
     def do_setup(self, line):
         '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp was chosen'''
         invalid_input_msg = "\nThe inputs of arguments was invalid. Type help setup for instructions."
         args = line.split()
-        if len(args) <= 1 and args[0] == "pvc":
+        if len(args) >= 1 and args[0] == "pvc":
             self.setup = ("pvc", "com")
-        elif len(args) <= 2 and args[0] == "pvp":
+            self.player_2 = player.choose_player("com")
+        elif len(args) >= 2 and args[0] == "pvp":
             player_2_id = args[1]
-            # If player_2_id exists choose them otherwise create a new player and set set self.player_2
+            if player.check_player_id(player_2_id):
+                self.player_2 = player.choose_player(player_2_id)
+                print(f"Player 2 was set to {self.player_2}")
+            else:
+                self.player_2 = player.Player(player_id=player_2_id)
+                print(f"Player {self.player_2} was created and set to player 2")
+            self.setup = ("pvp", player_2_id)
         else:
             print(invalid_input_msg)
 
@@ -68,11 +79,7 @@ exit - Return to main menu"""
             mode = "player vs computer"
         else:
             mode = "player vs player"
-        if self.setup[1] == "com":
-            player_2 = "Computer"
-        else:
-            player_2 = self.setup[1]
-        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {player_2}")
+        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {self.player_2}")
 
     def do_menu(self, line):
         '''Display menu'''

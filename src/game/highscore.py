@@ -6,6 +6,7 @@ class Highscore:
     
     def __init__(self, player_list):
         self.player_list = player_list
+        
     
     def sort_score_results(self):
         scoreboard = []
@@ -27,4 +28,4 @@ class Highscore:
         print(header)
         scoreboard = self.sort_score_results()
         for player in scoreboard:
-            return f'{player[0:4]}'
+            print(player)
