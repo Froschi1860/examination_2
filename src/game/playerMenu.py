@@ -62,11 +62,9 @@ exit - Return to main menu"""
             print(f"A player with the id {args[0]} already exists.")
         elif len(args) == 1 and not player.check_player_id(args[0]):
             self.player_1 = player.Player(args[0])
+            player.add_player(args[0])
         else:
             print("Enter a player id to create a player: create <player_id>")
-            self.player_1 = player.Player(new_player_id)
-            #adding the new player method here
-            player.add_player(new_player_id)
 
 
     def do_id(self, line):

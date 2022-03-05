@@ -68,6 +68,7 @@ exit - Return to main menu"""
                 print(f"Player 2 was set to {self.player_2}")
             else:
                 self.player_2 = player.Player(player_id=player_2_id)
+                player.add_player(player_2_id)
                 print(f"Player {self.player_2} was created and set to player 2")
             self.setup = ("pvp", player_2_id)
         else:

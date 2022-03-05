@@ -162,7 +162,7 @@ class TestPlayerMenu(unittest.TestCase):
         '''Assert equality of initialised player and sucessfully chosen player'''
         test_player_1 = player.Player("test_player_1")
         test_player_2 = player.Player("test_player_2")
-        test_player_2.add_player()
+        player.add_player("test_player_2")
         menu = playerMenu.PlayerMenu(player_1=test_player_1)
         menu.do_choose("test_player_2")
         self.assertEqual(menu.player_1.player_id, test_player_2.player_id)
@@ -185,6 +185,7 @@ class TestPlayerMenu(unittest.TestCase):
         '''Assert correct print of error message and unchanged current player'''
         test_player = player.Player("test_player")
         existing_player = player.Player("existing")
+        player.add_player("existing")
         menu = playerMenu.PlayerMenu(player_1=test_player)
         captured_output = io.StringIO()
         sys.stdout = captured_output
