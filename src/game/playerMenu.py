@@ -1,5 +1,4 @@
 import cmd, player
-from hashlib import new
 
 
 class PlayerMenu(cmd.Cmd):
@@ -93,6 +92,7 @@ exit - Return to main menu"""
     def do_exit(self, line):
         '''Return to main menu after player was chosen'''
         if self.test_mode:
+            print("Exiting")
             return True
         else:
             if self.player_1 == None:

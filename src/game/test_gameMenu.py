@@ -1,4 +1,3 @@
-from lib2to3.pgen2.literals import test
 import unittest, gameMenu, player, game, io, sys
 
 
@@ -26,7 +25,73 @@ class TestGameMenu(unittest.TestCase):
 
 
     # Test cmdloop
+    def test_cmdloop_in_test_mode_without_test_cmd_terminates(self):
+        '''Test if test mode terminates if no test_cmd is given'''
+        test_player_1 = player.Player("test_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu.cmdloop()
+        self.assertTrue(True)
 
+    def test_cmdloop_in_test_mode_with_test_cmd_terminates(self):
+        '''Test if test mode terminates if command is given'''
+        test_player_1 = player.Player("test_1")
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current")
+        test_gameMenu.cmdloop()
+        self.assertTrue(True)
+
+    def test_cmdloop_with_input_start(self):
+        '''Test if input start activates respective option'''
+        test_player_1 = player.Player("test_1")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="start").cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Game started\nExiting\n")
+        
+    def test_cmdloop_with_input_setup(self):
+        '''Test if input setup activates respective option'''
+        test_player_1 = player.Player("test_1")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="setup invalid").cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "\nThe inputs of arguments was invalid. " +
+            "Type help setup for instructions.\nExiting\n")
+
+    def test_cmdloop_with_input_current(self):
+        '''Test if current setup activates respective option'''
+        test_player_1 = player.Player("test_1")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current").cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Current setup: Game mode player vs computer -> " +
+            "test_1 plays against com\nExiting\n")
+
+    def test_cmdloop_with_input_menu(self):
+        '''Test if current menu activates respective option'''
+        test_player_1 = player.Player("test_1")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="menu")
+        test_gameMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, test_gameMenu.menu_message + "\nExiting\n")
+    
+    def test_cmdloop_with_input_exit(self):
+        '''Test if current exit activates respective option'''
+        test_player_1 = player.Player("test_1")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="exit")
+        test_gameMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Exiting\nExiting\n")
 
 
     # Test precmd

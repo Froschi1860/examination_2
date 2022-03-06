@@ -1,8 +1,4 @@
-import unittest
-import io
-import sys
-import playerMenu
-import player
+import unittest, io, sys, playerMenu, player
 
 
 class TestPlayerMenu(unittest.TestCase):
@@ -43,7 +39,7 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "The computer can not be chosen as player\n")
+        self.assertEqual(printed_output, "The computer can not be chosen as player\nExiting\n")
 
     def test_cmdloop_with_input_create(self):
         '''Test if input create activates respective option'''
@@ -53,7 +49,7 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to create a player: create <player_id>\n")
+        self.assertEqual(printed_output, "Enter a player id to create a player: create <player_id>\nExiting\n")
 
     def test_cmdloop_with_input_id(self):
         '''Test if input id activates respective option'''
@@ -63,7 +59,7 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to change the id of the current player: id <player_id>\n")
+        self.assertEqual(printed_output, "Enter a player id to change the id of the current player: id <player_id>\nExiting\n")
 
     def test_cmdloop_with_input_current(self):
         '''Test if input current activates respective option'''
@@ -73,7 +69,7 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "\nNo player chosen\n")
+        self.assertEqual(printed_output, "\nNo player chosen\nExiting\n")
 
     def test_cmdloop_with_input_menu(self):
         '''Test if input menu activates respective option'''
@@ -83,14 +79,18 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, menu.menu_message + "\n")
+        self.assertEqual(printed_output, menu.menu_message + "\nExiting\n")
 
     def test_cmdloop_with_input_exit(self):
         '''Test if input exit activates respective option'''
         test_player = player.Player("test")
         menu = playerMenu.PlayerMenu(player_1=test_player, test_mode=True, test_cmd="exit")
-        res = menu.cmdloop()
-        self.assertEqual(res, test_player)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        menu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Exiting\nExiting\n")
 
 
     # Test precmd()
@@ -306,4 +306,3 @@ class TestPlayerMenu(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    

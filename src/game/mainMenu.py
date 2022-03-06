@@ -50,12 +50,18 @@ end - End the programme"""
 
     def do_player(self, line):
         '''Open the player menu'''
-        self.player_1 = playerMenu.PlayerMenu(player_1=self.player_1).cmdloop()
+        if self.test_mode:
+            playerMenu.PlayerMenu(player_1=self.player_1, test_mode=True, test_cmd="menu")
+        else:
+            self.player_1 = playerMenu.PlayerMenu(player_1=self.player_1).cmdloop()
 
     def do_game(self, line):
         '''Set up and start a new game'''
-        game_menu = gameMenu.GameMenu(player_1=self.player_1, player_2=self.player_2, setup=self.setup)
-        self.setup, self.player_2 = game_menu.cmdloop()
+        if self.test_mode:
+            gameMenu.GameMenu(player_1=self.player_1, test_mode=True, test_cmd="menu")
+        else:
+            game_menu = gameMenu.GameMenu(player_1=self.player_1, player_2=self.player_2, setup=self.setup)
+            self.setup, self.player_2 = game_menu.cmdloop()
 
     def do_highscore(self, line):
         '''Display player statistics'''

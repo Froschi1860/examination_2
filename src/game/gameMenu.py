@@ -50,6 +50,7 @@ exit - Return to main menu"""
         '''Start a new game with current setup'''
         new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
         if self.test_mode:
+            print("Game started")
             return new_game
         else:
             new_game.start()
@@ -88,7 +89,8 @@ exit - Return to main menu"""
 
     def do_exit(self, line):
         '''Return to main menu'''
-        return True
-
-
-        
+        if self.test_mode:
+            print("Exiting")
+            return True
+        else:
+            return True
