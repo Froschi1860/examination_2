@@ -85,6 +85,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_setup_with_only_arg_pvc_and_two_players(self):
         '''Check if setup is correctly changed for mode pvc'''
         com = player.Player("com")
+        player.add_player("com")
         test_player_1 = player.Player("test_1")
         test_player_2 = player.Player("test_2")
         test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2, test_mode=True,
@@ -96,6 +97,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_setup_with_args_pvc_and_extra_arg_and_one_player(self):
         '''Check if setup is correctly changed for mode pvc with wrong additional input'''
         com = player.Player("com")
+        player.add_player("com")
         test_player_1 = player.Player("test_1")
         test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
         test_gameMenu.onecmd("setup pvc invalid")
@@ -106,6 +108,7 @@ class TestGameMenu(unittest.TestCase):
         '''Check if setup and player 2 are correctly changed for mode pvp and existing player 2'''
         test_player_1 = player.Player("test_player_1")
         existing_test_player = player.Player("existing_test_player")
+        player.add_player("existing_test_player")
         test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output

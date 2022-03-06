@@ -16,18 +16,10 @@ class Player:
         self.games_played = games_played
         self.last_game_won = last_game_won
         self.total_games_won = total_games_won
-        self.add_player()
-
-
-    def add_player(self):
-        '''adds a player to the player stats file/list'''
-        player_stats = {'Player ID': self.player_id,'Total Games Won': self.total_games_won, 
-                        'Total Games Played' :self.games_played, 'Total Rounds Played': self.total_rounds_played, 
-                        'Last Game Won': False, 'Last Rounds Played': self.last_rounds_played}
-        player_list.append(player_stats)
 
     
     def change_player_id(self,new_player_id):
+        '''allows the player to change their id'''
         for player in player_list:
             if player['Player ID'] == self.player_id:
                 player['Player ID'] = new_player_id
@@ -55,17 +47,20 @@ class Player:
 
     
     def __str__(self):
+        '''returns a string with the name of the player when called'''
         return f"{self.player_id}"
 
 
 def choose_player(player_id):
+    '''allows a player to be chosen from a list of already existed player, and for their updated statistics
+    to be used within the game'''
     for player in player_list:
         if player['Player ID'] == player_id:
                 selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
                 total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
                 last_game_won=False, total_games_won= player['Total Games Won'])
-                selected_player.add_player()
                 return selected_player
+
 
 def check_player_id(player_id):
     '''checks to see if the player already has stats'''
@@ -74,3 +69,10 @@ def check_player_id(player_id):
         if player['Player ID'] == player_id:
             return_value = True
     return return_value 
+
+def add_player(player_id):
+    '''adds a new player to the player stats list'''
+    player_stats = {'Player ID': player_id, 'Total Games Won': 0,
+                    'Total Games Played': 0 , 'Total Rounds Played': 0, 
+                    'Last Game Won': False, 'Last Rounds Played': 0 }
+    player_list.append(player_stats)
