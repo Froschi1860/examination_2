@@ -24,14 +24,14 @@ class Highscore:
         '''displays the highscore according to a particular format'''
         
         header = '''
-        HIGHSCORE RESULTS:\n
-        ------------------------------------------------------------------\n
-        PLAYER    | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
-        ------------------------------------------------------------------'''
+HIGHSCORE RESULTS:\n
+---------------------------------------------------------------------\n
+PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
+---------------------------------------------------------------------'''
         print(header)
         scoreboard = self.sort_score_results()
         for player in scoreboard:
-            print(*player)
+            print(f'{player[0]:<15}{player[1]:<13}{player[2]:<22}{player[3]:<21}')
 
 # def write_stats_to_file(player_list):
 #     '''This method creates a file which is then used to store the player list outside of each game'''
