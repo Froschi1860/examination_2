@@ -33,16 +33,4 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         for player in scoreboard:
             print(f'{player[0]:<15}{player[1]:<13}{player[2]:<22}{player[3]:<21}')
 
-# def write_stats_to_file(player_list):
-#     '''This method creates a file which is then used to store the player list outside of each game'''
-#     try:
-#         with open("Player_stats.txt"):        
-#             return 0 
-#     except FileExistsError:
-#         return 
-
-# def read_stats_from_file():
-#     player_list = []
-#     return player_list
-        
         
