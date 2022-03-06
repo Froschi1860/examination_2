@@ -1,6 +1,8 @@
 '''This class constructs a player and adds them to a list of dictionaries which contains information about each player object.
 This allows the user to select a player, make a new player, or even change the name of their already saved player'''
 
+import json
+from os.path import exists as file_exists
 player_list = []
 
 
@@ -76,3 +78,33 @@ def add_player(player_id):
                     'Total Games Played': 0 , 'Total Rounds Played': 0, 
                     'Last Game Won': False, 'Last Rounds Played': 0 }
     player_list.append(player_stats)
+    
+
+
+def write_player_data(player_list):
+     '''This method creates a file which is then used to store the player list outside of each game'''
+     if file_exists('Player_stats.json'):
+        pass
+     else: 
+         json.dump(player_list)
+         
+     try:
+        with open('Player_stats.json', 'w') as file:
+            json.dump(player_list, file)
+        
+     except FileNotFoundError:
+         return 'There does not seem to be a saved file' 
+             
+
+def read_player_data():
+    try:
+        if file_exists('Player_stats.json'): 
+            with open('Player_stats.json', 'r') as file:
+                player_list = json.load(file)
+                return player_list
+        else:
+            return player_list
+    except FileExistsError:
+        return player_list
+
+
