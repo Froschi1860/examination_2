@@ -1,4 +1,4 @@
 import time, cardHand, deck, game, player
  
-game = game.Game("Enzo", "com")
+game = game.Game(player.Player("Enzo"), player.Player("com"))
 game.start()

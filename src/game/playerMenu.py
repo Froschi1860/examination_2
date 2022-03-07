@@ -44,10 +44,6 @@ exit - Return to main menu"""
 
     def do_choose(self, line):
         '''Open an existing player profile and display chosen player'''
-        # if line != "":
-        #     player_id = line.split()[0]
-        # else:
-        #     player_id = line
         player_id = line
         if player_id == "":
             print("Enter a player id to choose a player: choose <player_id>")
@@ -60,13 +56,15 @@ exit - Return to main menu"""
 
     def do_create(self, line):
         '''Create a new player profile'''
-        new_player_id = line
-        if new_player_id == "":
-            print("Enter a player id to create a player: create <player_id>")
-        elif player.check_player_id(new_player_id):
-            print(f"A player with the id {new_player_id} already exists.")
+        args = line.split()
+        if len(args) == 1 and player.check_player_id(args[0]):
+            print(f"A player with the id {args[0]} already exists.")
+        elif len(args) == 1 and not player.check_player_id(args[0]):
+            self.player_1 = player.Player(args[0])
+            player.add_player(args[0])
         else:
-            self.player_1 = player.Player(new_player_id)
+            print("Enter a player id to create a player: create <player_id>")
+
 
     def do_id(self, line):
         '''Change id of current player'''
@@ -78,7 +76,6 @@ exit - Return to main menu"""
         elif player.check_player_id(new_player_id):
             print(f"A player with the id {new_player_id} already exists")
         else:
-            # Change test case
             self.player_1.change_player_id(new_player_id)
 
     def do_current(self, line):
@@ -95,6 +92,7 @@ exit - Return to main menu"""
     def do_exit(self, line):
         '''Return to main menu after player was chosen'''
         if self.test_mode:
+            print("Exiting")
             return True
         else:
             if self.player_1 == None:
