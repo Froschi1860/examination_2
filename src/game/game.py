@@ -1,4 +1,4 @@
-import card, deck, cardHand, time
+import card, deck, cardHand, time, player
 
 
 class Game:
@@ -7,14 +7,13 @@ class Game:
         self.player_2 = player_2
         self.p1_hand = None
         self.p2_hand = None
-        self.player_2_dis = "Computer" if self.player_2 == None else self.player_2        
 
 
     def print_card(self, p1_card, p2_card, print_info, pot):
         self.check_winner(self.p1_hand, self.p2_hand)
         p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
 
-        print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2_dis}':<12}\n------------|------------" if print_info else "")
+        print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2}':<12}\n------------|------------" if print_info else "")
         
         l1 = p1_card.ascii_card.split('\n')
         l2 = p2_card.ascii_card.split('\n')
@@ -47,46 +46,70 @@ class Game:
 
     def check_winner(self, p1_hand, p2_hand):
         if len(p1_hand) == 0:
-            print("\nPlayer 1 wins the game !")
-            exit()
+            print(f"\n{self.player_2} wins the game !")
+            self.end_game(self.player_2)
         elif len(p2_hand) == 0:
-            print("\nPlayer 2 wins the game !")
-            exit()
+            print(f"\n{self.player_1} wins the game !")
+            self.end_game(self.player_1)
+
+    
+    def sort_cards(self, pot, winner):
+        print(f"{winner}, you can sort the pot before continuing")
+
+        while True:
+            for i in pot: print(i.classic, end=f": {pot.index(i)} | ")
+            print()
+
+            print("Input SWITCH to switch cards | DONE when you are finish: ", end=" ")
+            res = input()
+            if res.upper() == "SWITCH":
+
+                print("Input first card position (int): ", end="")
+                card1_pos = int(input())
+                print("Input second card position (int): ", end="")
+                card2_pos = int(input())
+
+                if (card1_pos >= 0 and card1_pos <= len(pot)) and (card2_pos >= 0 and card2_pos <= len(pot)):
+                    pot[card1_pos], pot[card2_pos] = pot[card2_pos], pot[card1_pos]
+
+            elif res.upper() == "DONE": return pot
 
 
-    def end(self):
-        return True
+    def end_game(self, winner):
+        winner.update_player_stats(winner)
+        exit()
 
     
     def draw(self, simulate=False):
-        flag = True
-        while flag:
+        while True:
             pot = []
             p1_card, p2_card, winner = None, None, None
             p1_card, p2_card = self.print_card(p1_card, p2_card, True, pot)
 
             while (p1_card.value == p2_card.value) or (p1_card.suit == p2_card.suit):
+                self.check_winner(self.p1_hand, self.p2_hand)
                 print("--- THERE IS A WAR ---")
-
                 if simulate: 
                     p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot, 0)
                 else:
                     time.sleep(1)
                     p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot)
-
                 p1_card, p2_card = self.print_card(p1_card, p2_card, False, pot)
 
             if p1_card.value > p2_card.value:
-                winner = "Player 1"
+                winner = self.player_1
+                if len(pot) > 2 and self.player_1 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
                 [self.p1_hand.append(x) for x in pot]
+
             elif p1_card.value < p2_card.value:
-                winner = "Player 2"
+                winner = self.player_2
+                if len(pot) > 2 and self.player_2 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
                 [self.p2_hand.append(x) for x in pot]
 
-            print(f"{winner} wins the round ! {self.player_1} has {len(self.p1_hand)} cards, {self.player_2_dis} has {len(self.p2_hand)} cards")
-
+            print(f"{winner} wins the round ! {self.player_1} has {len(self.p1_hand)} cards, {self.player_2} has {len(self.p2_hand)} cards")
             self.check_winner(self.p1_hand, self.p2_hand)
-            if not simulate: flag = False
+
+            if not simulate: break
 
 
     def start(self):
@@ -99,4 +122,3 @@ class Game:
             if res == "": self.draw()
             elif res.upper() == "EXIT": return True
             elif res.upper() == "CHEAT": self.draw(True)
-                
