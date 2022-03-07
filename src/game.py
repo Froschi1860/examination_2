@@ -86,8 +86,7 @@ class Game:
     def end_game(self):
         self.game_winner.update_player_stats(True, self.rounds)
         self.game_loser.update_player_stats(False, self.rounds)
-    
-        self.game_over = True
+        player.write_player_data(player.player_list)
 
     
     def draw(self, simulate=False):
@@ -133,7 +132,7 @@ class Game:
             res = input()
 
             if res == "": self.draw()
-            elif res.upper() == "EXIT": return True
+            elif res.upper() == "EXIT": return
             elif res.upper() == "CHEAT": self.draw(True)
         self.end_game()
         return True
