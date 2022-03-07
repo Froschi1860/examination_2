@@ -82,21 +82,22 @@ def add_player(player_id):
 
 
 def write_player_data(player_list):
-     '''This method creates a file which is then used to store the player list outside of each game'''
-     if file_exists('Player_stats.json'):
+    '''This method creates a file which is then used to store the player list outside of each game'''
+    if file_exists('Player_stats.json'):
         pass
-     else: 
-         json.dump(player_list)
+    else: 
+        json.dump(player_list)
          
-     try:
+    try:
         with open('Player_stats.json', 'w') as file:
             json.dump(player_list, file)
         
-     except FileNotFoundError:
-         return 'There does not seem to be a saved file' 
+    except FileNotFoundError:
+        return 'There does not seem to be a saved file' 
              
 
 def read_player_data():
+    player_list = []
     try:
         if file_exists('Player_stats.json'): 
             with open('Player_stats.json', 'r') as file:

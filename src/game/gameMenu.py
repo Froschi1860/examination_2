@@ -21,8 +21,7 @@ exit - Return to main menu"""
         super().__init__()
         self.player_1 = player_1 
         if player_2 == None:
-            #self.player_2 = player.choose_player("com")
-            self.player_2 = player.Player(player_id="com")
+            self.player_2 = player.choose_player("com")
         else:
             self.player_2 = player_2
         self.test_mode = test_mode
@@ -81,7 +80,7 @@ exit - Return to main menu"""
             mode = "player vs computer"
         else:
             mode = "player vs player"
-        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {self.player_2}")
+        print(f"Current setup: Game mode {mode} -> {self.player_1} plays against {self.setup[1]}")
 
     def do_menu(self, line):
         '''Display menu'''

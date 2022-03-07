@@ -273,7 +273,7 @@ class TestPlayerMenu(unittest.TestCase):
         self.assertEqual(printed_output, "\nCurrent player: test\n")
 
 
-    # # Test do_menu()
+    # Test do_menu()
     def test_do_menu(self):
         '''Assert if menu is printed correctly'''
         menu = playerMenu.PlayerMenu()

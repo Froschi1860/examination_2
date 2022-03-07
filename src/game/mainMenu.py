@@ -1,4 +1,4 @@
-import cmd, playerMenu, gameMenu, highscore, player
+import cmd, playerMenu, gameMenu, highscore, player, rules
 
 
 class MainMenu(cmd.Cmd):
@@ -28,7 +28,6 @@ end - End the programme"""
         self.test_cmd = test_cmd
         self.setup = setup
 
-
     def cmdloop(self):
         '''Run menu and enforce player choice at beginning in game mode'''
         if self.test_mode:
@@ -51,25 +50,28 @@ end - End the programme"""
     def do_player(self, line):
         '''Open the player menu'''
         if self.test_mode:
-            playerMenu.PlayerMenu(player_1=self.player_1, test_mode=True, test_cmd="menu")
+            return playerMenu.PlayerMenu()
         else:
             self.player_1 = playerMenu.PlayerMenu(player_1=self.player_1).cmdloop()
 
     def do_game(self, line):
         '''Set up and start a new game'''
         if self.test_mode:
-            gameMenu.GameMenu(player_1=self.player_1, test_mode=True, test_cmd="menu")
+            return gameMenu.GameMenu(player_1=self.player_1)
         else:
             game_menu = gameMenu.GameMenu(player_1=self.player_1, player_2=self.player_2, setup=self.setup)
             self.setup, self.player_2 = game_menu.cmdloop()
 
     def do_highscore(self, line):
         '''Display player statistics'''
-        highscore.Highscore(player.player_list).display_highscore()
+        if self.test_mode:
+            return highscore.Highscore(player.player_list)
+        else:
+            highscore.Highscore(player.player_list).display_highscore()
 
     def do_rules(self, line):
         '''Display the game rules'''
-        return "rules"
+        print(rules.game_rules)
 
     def do_current(self, line):
         '''Display current player'''
@@ -88,10 +90,13 @@ welcome_message = """\nWelcome to war! How about a game of cards?
 ------------------------------------------"""
 
 def main():
-    '''Initialize the game and welcome user'''
+    '''Initialize the programe by loading or initialising player data and welcome user'''
     print(welcome_message)
-    #player.read_player_data(player.player_list)
+    player.player_list = player.read_player_data()
+    if not player.check_player_id("com"):
+        player.add_player(player.Player("com").player_id)
     MainMenu().cmdloop()
+    player.write_player_data(player.player_list)
     print("Thank you for playing!")
 
 if __name__ == "__main__":

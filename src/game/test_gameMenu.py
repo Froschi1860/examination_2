@@ -65,7 +65,8 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current").cmdloop()
+        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1,test_mode=True, test_cmd="current")
+        test_gameMenu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
         self.assertEqual(printed_output, "Current setup: Game mode player vs computer -> " +
