@@ -2,3 +2,4 @@
 src/game/__pychache__
 /game/__pychache__/
 .ingame/
+Player_stats.json
