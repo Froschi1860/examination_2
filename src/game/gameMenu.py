@@ -52,7 +52,7 @@ exit - Return to main menu"""
             print("Game started")
             return new_game
         else:
-            new_game.start()
+            return new_game.start()
 
     def do_setup(self, line):
         '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp was chosen'''
