@@ -7,49 +7,53 @@ class Game:
         self.player_2 = player_2
         self.p1_hand = None
         self.p2_hand = None
+        self.game_over = False
+        self.game_winer = None
 
 
     def print_card(self, p1_card, p2_card, print_info, pot):
         self.check_winner(self.p1_hand, self.p2_hand)
-        p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
-
-        print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2}':<12}\n------------|------------" if print_info else "")
-        
-        l1 = p1_card.ascii_card.split('\n')
-        l2 = p2_card.ascii_card.split('\n')
-
-        for i in range(min(len(l1), len(l2))):
-            print(l1[i] + "   " + l2[i])
-
-        pot.append(p1_card)
-        pot.append(p2_card)
-
+        if not self.game_over:
+            p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
+    
+            print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2}':<12}\n------------|------------" if print_info else "")
+            
+            l1 = p1_card.ascii_card.split('\n')
+            l2 = p2_card.ascii_card.split('\n')
+    
+            for i in range(min(len(l1), len(l2))):
+                print(l1[i] + "   " + l2[i])
+    
+            pot.append(p1_card)
+            pot.append(p2_card)
+    
         return p1_card, p2_card
 
 
     def print_card_war(self, p1_card, p2_card, pot, sleep_time=0.5):
         for i in range(3):
             self.check_winner(self.p1_hand, self.p2_hand)
-            p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
-
-            l1 = p1_card.ascii_hidden.split('\n')
-            l2 = p2_card.ascii_hidden.split('\n')
-
-            for i in range(min(len(l1), len(l2))): print(l1[i] + "   " + l2[i])
-
-            pot.append(p1_card)
-            pot.append(p2_card)
-            time.sleep(sleep_time)
+            if not self.game_over:
+                p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
+    
+                l1 = p1_card.ascii_hidden.split('\n')
+                l2 = p2_card.ascii_hidden.split('\n')
+    
+                for i in range(min(len(l1), len(l2))): print(l1[i] + "   " + l2[i])
+    
+                pot.append(p1_card)
+                pot.append(p2_card)
+                time.sleep(sleep_time)
 
         return p1_card, p2_card
 
 
     def check_winner(self, p1_hand, p2_hand):
         if len(p1_hand) == 0:
-            print(f"\n{self.player_2} wins the game !")
+            self.game_winer = self.player_2
             self.end_game(self.player_2)
         elif len(p2_hand) == 0:
-            print(f"\n{self.player_1} wins the game !")
+            self.game_winer = self.player_1
             self.end_game(self.player_1)
 
     
@@ -77,25 +81,26 @@ class Game:
 
     def end_game(self, winner):
         winner.update_player_stats(winner)
-        exit()
+        self.game_over = True
 
     
     def draw(self, simulate=False):
-        while True:
+        while not self.game_over:
             pot = []
             p1_card, p2_card, winner = None, None, None
             p1_card, p2_card = self.print_card(p1_card, p2_card, True, pot)
 
-            while (p1_card.value == p2_card.value) or (p1_card.suit == p2_card.suit):
+            while (p1_card.value == p2_card.value) or (p1_card.suit == p2_card.suit) and not self.game_over:
                 self.check_winner(self.p1_hand, self.p2_hand)
-                print("--- THERE IS A WAR ---")
-                if simulate: 
-                    p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot, 0)
-                else:
-                    time.sleep(1)
-                    p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot)
-                p1_card, p2_card = self.print_card(p1_card, p2_card, False, pot)
-
+                if not self.game_over:
+                    print("--- THERE IS A WAR ---")
+                    if simulate: 
+                        p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot, 0)
+                    else:
+                        time.sleep(1)
+                        p1_card, p2_card = self.print_card_war(p1_card, p2_card, pot)
+                    p1_card, p2_card = self.print_card(p1_card, p2_card, False, pot)
+    
             if p1_card.value > p2_card.value:
                 winner = self.player_1
                 if len(pot) > 2 and self.player_1 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
@@ -106,19 +111,22 @@ class Game:
                 if len(pot) > 2 and self.player_2 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
                 [self.p2_hand.append(x) for x in pot]
 
-            print(f"{winner} wins the round ! {self.player_1} has {len(self.p1_hand)} cards, {self.player_2} has {len(self.p2_hand)} cards")
+            print(f"{winner} wins the round !")
             self.check_winner(self.p1_hand, self.p2_hand)
 
             if not simulate: break
+        if self.game_over: print(f"\n{self.game_winer} wins the game !")
+
 
 
     def start(self):
         self.p1_hand, self.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
 
-        while True:
+        while not self.game_over:
             print("Press ENTER to draw, Type EXIT to quit game or CHEAT to simulate the game: ", end="")
             res = input()
 
             if res == "": self.draw()
             elif res.upper() == "EXIT": return True
             elif res.upper() == "CHEAT": self.draw(True)
+        return True
