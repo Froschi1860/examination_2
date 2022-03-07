@@ -39,16 +39,14 @@ class Player:
             self.last_game_won = False
         
         self.last_rounds_played = rounds_played
-              
+        self.games_played += 1
+        self.total_rounds_played += self.last_rounds_played
         for player in player_list:
             if player['Player ID'] == self.player_id:
-                self.games_played += 1
-                self.total_rounds_played += self.last_rounds_played
                 player['Total Games Played'] = self.games_played 
-                player['Total Rounds Played'] += self.total_rounds_played
-                player['Total Games Won'] += self.total_games_won
+                player['Total Rounds Played'] = self.total_rounds_played
+                player['Total Games Won'] = self.total_games_won
                 player['Last Game Won'] = self.last_game_won
-                self.last_rounds_played = 0 
                 player['Last Rounds Played'] = self.last_rounds_played
 
     

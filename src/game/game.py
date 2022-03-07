@@ -8,7 +8,7 @@ class Game:
         self.p1_hand = None
         self.p2_hand = None
         self.game_over = False
-        self.game_winer = None
+        self.game_winner = None
         self.game_loser = None
         self.rounds = 0
 
@@ -52,13 +52,13 @@ class Game:
 
     def check_winner(self, p1_hand, p2_hand):
         if len(p1_hand) == 0:
-            self.game_winer = self.player_2
+            self.game_winner = self.player_2
             self.game_loser = self.player_1
-            self.end_game(self.game_winer, self.game_loser)
+            self.game_over = True
         elif len(p2_hand) == 0:
-            self.game_winer = self.player_1
+            self.game_winner = self.player_1
             self.game_loser = self.player_2
-            self.end_game(self.game_winer, self.game_loser)
+            self.game_over = True
 
     
     def sort_cards(self, pot, winner):
@@ -83,9 +83,9 @@ class Game:
             elif res.upper() == "DONE": return pot
 
 
-    def end_game(self, winner, looser):
-        winner.update_player_stats(True, self.rounds)
-        looser.update_player_stats(False, self.rounds)
+    def end_game(self):
+        self.game_winner.update_player_stats(True, self.rounds)
+        self.game_loser.update_player_stats(False, self.rounds)
     
         self.game_over = True
 
@@ -122,8 +122,7 @@ class Game:
             self.check_winner(self.p1_hand, self.p2_hand)
 
             if not simulate: break
-        if self.game_over: print(f"\n{self.game_winer} wins the game !")
-
+        if self.game_over: print(f"\n{self.game_winner} wins the game !")
 
 
     def start(self):
@@ -136,4 +135,5 @@ class Game:
             if res == "": self.draw()
             elif res.upper() == "EXIT": return True
             elif res.upper() == "CHEAT": self.draw(True)
+        self.end_game()
         return True
