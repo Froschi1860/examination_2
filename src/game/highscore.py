@@ -12,7 +12,7 @@ class Highscore:
     def sort_score_results(self):
         '''sorts the highscore based on which player has acheived the most wins'''
         scoreboard = []
-        ranked_list_of_dicts = sorted(self.player_list, key=lambda player: player['Total Games Won'])
+        ranked_list_of_dicts = sorted(self.player_list, key=lambda player: player['Total Games Won'], reverse = True)
         for player in ranked_list_of_dicts:
             stats = player.values()
             player_stats = list(stats)
