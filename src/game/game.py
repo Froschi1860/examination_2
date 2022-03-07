@@ -9,6 +9,8 @@ class Game:
         self.p2_hand = None
         self.game_over = False
         self.game_winer = None
+        self.game_loser = None
+        self.rounds = None
 
 
     def print_card(self, p1_card, p2_card, print_info, pot):
@@ -51,10 +53,12 @@ class Game:
     def check_winner(self, p1_hand, p2_hand):
         if len(p1_hand) == 0:
             self.game_winer = self.player_2
-            self.end_game(self.player_2)
+            self.game_loser = self.player_1
+            self.end_game(self.game_winer, self.game_loser)
         elif len(p2_hand) == 0:
             self.game_winer = self.player_1
-            self.end_game(self.player_1)
+            self.game_loser = self.player_2
+            self.end_game(self.game_winer, self.game_loser)
 
     
     def sort_cards(self, pot, winner):
@@ -79,8 +83,10 @@ class Game:
             elif res.upper() == "DONE": return pot
 
 
-    def end_game(self, winner):
-        winner.update_player_stats(winner)
+    def end_game(self, winner, looser):
+        winner.update_player_stats(True, self.rounds)
+        looser.update_player_stats(False, self.rounds)
+    
         self.game_over = True
 
     
@@ -112,6 +118,7 @@ class Game:
                 [self.p2_hand.append(x) for x in pot]
 
             print(f"{winner} wins the round !")
+            self.rounds += 1
             self.check_winner(self.p1_hand, self.p2_hand)
 
             if not simulate: break
