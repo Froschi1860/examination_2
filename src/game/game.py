@@ -10,7 +10,7 @@ class Game:
         self.game_over = False
         self.game_winer = None
         self.game_loser = None
-        self.rounds = None
+        self.rounds = 0
 
 
     def print_card(self, p1_card, p2_card, print_info, pot):
