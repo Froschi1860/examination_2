@@ -28,16 +28,20 @@ class Player:
         self.player_id = new_player_id
         
         
-    def update_player_stats(self, player_id): 
+    def update_player_stats(self, is_winner, rounds_played): 
         '''update player object as well as the player dictionary in the list'''
-        if self.last_game_won == True:
+        
+        if is_winner == True:
             add_game = 1
+            self.last_game_won = True 
         else:
             add_game = 0
+            self.last_game_won = False
+        
+        self.last_rounds_played = rounds_played
                
         for player in player_list:
-            if player['Player ID'] == player_id:
-                self.last_game_won = False
+            if player['Player ID'] == self.player_id:
                 self.games_played =+ 1
                 self.total_rounds_played += self.last_rounds_played
                 player['Total Games Played'] = self.games_played 
