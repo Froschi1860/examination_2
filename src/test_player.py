@@ -3,74 +3,73 @@ import player
 
 class testPlayer(unittest.TestCase):
     
-    def test_init_with_one_input(self, player_id, last_rounds_played=0, total_rounds_played=0, games_played=0, 
-                last_game_won=False, total_games_won=0):
+    #testing init
+    def test_init_with_one_argument():
         '''test that a player object is made with just one argument'''
-        self.player_id = player_id
-        self.last_rounds_played = last_rounds_played
-        self.total_rounds_played = total_rounds_played
-        self.games_played = games_played
-        self.last_game_won = last_game_won
-        self.total_games_won = total_games_won
+    
+    
+    def test_init_with_two_arguments(self):
+        '''test if a player object is written with two arguments '''
+    
+    
+    def test_init_with_three_arguments(self):
+        '''test if a player object is written with three arguments '''
+    
+    
+    def test_init_with_four_arguments(self):
+        '''test if a player object is written with four arguments '''
+
+
+    def test_init_with_five_arguments(self):
+        '''test if a player object is written with five arguments '''
+
+ 
+    def test_init_with_all_arguments(self):
+        '''test if a player object is written with all arguments '''    
 
     
-    def test_change_player_id(self,new_player_id):
+    #testing changing player id
+    def test_change_player_id(self):
         '''test that a player's id is changed'''
-        test_player = player.Player("test")
-        test_player_list = []
-        for player in test_player_list:
-            if player['Player ID'] == self.player_id:
-                player['Player ID'] = new_player_id
-        self.player_id = new_player_id
-        
-        
-#     def update_player_stats(self, player_id): 
-#         '''update player object as well as the player dictionary in the list'''
-#         if self.last_game_won == True:
-#             add_game = 1
-#         else:
-#             add_game = 0
-            
-#         for player in player_list:
-#             if player['Player ID'] == player_id:
-#                 self.last_game_won = False
-#                 self.games_played =+ 1
-#                 self.total_rounds_played += self.last_rounds_played
-#                 player['Total Games Played'] = self.games_played 
-#                 player['Total Rounds Played'] += self.total_rounds_played
-#                 player['Total Games Won'] += add_game
-#                 player['Last Game Won'] = self.last_game_won
-#                 self.last_rounds_played = 0 
-#                 player['Last Rounds Played'] = self.last_rounds_played
 
     
-#     def __str__(self):
-#         '''returns a string with the name of the player when called'''
-#         return f"{self.player_id}"
+    #testing updating player stats 
+    def test_update_statistics_game_won(self):
+        '''test updates statistics for a winning game'''
+    
+    
+    def test_update_statistics_game_lost(self):
+        '''test updates statistics for a losing game'''
+        
+    #test to String method
+    def test_return_player_id_as_string(self):
+        '''tests that the selected player's name is returned as a string'''
+    
+    
+    #test choose player
+    def test_choose_existing_player(self):
+        '''tests that a player from the player list is chosen'''
+    
+    
+    def test_choose_non_existing_player(self):
+        '''tests that nothing is returned if a player that does not exist is chosen'''
+    
+    
+    #test player id 
+    def test_check_player_id_exists(self):
+        '''tests that it returns true if a player who is already on the list exists'''
+    
+    
+    def test_check_player_id_not_exists(self):
+        '''tests that it returns false if a player is not already on the list'''
+
+    #test add player 
+    
+    def test_player_is_added_one_argument(self):
+        '''tests if a new player is added to the player list with default stats'''
+
+    
+    def test_player_is_added_two_arguments(self):
+        '''tests that a new player is still added with default stats even if multiple arguments are given'''
 
 
-# def choose_player(player_id):
-#     '''allows a player to be chosen from a list of already existed player, and for their updated statistics
-#     to be used within the game'''
-#     for player in player_list:
-#         if player['Player ID'] == player_id:
-#                 selected_player = Player(player_id=player_id, last_rounds_played = player['Last Rounds Played'], 
-#                 total_rounds_played=player['Total Rounds Played'], games_played=player['Total Games Played'],
-#                 last_game_won=False, total_games_won= player['Total Games Won'])
-#                 return selected_player
-
-
-# def check_player_id(player_id):
-#     '''checks to see if the player already has stats'''
-#     return_value = False
-#     for player in player_list:
-#         if player['Player ID'] == player_id:
-#             return_value = True
-#     return return_value 
-
-# def add_player(player_id):
-#     '''adds a new player to the player stats list'''
-#     player_stats = {'Player ID': player_id, 'Total Games Won': 0,
-#                     'Total Games Played': 0 , 'Total Rounds Played': 0, 
-#                     'Last Game Won': False, 'Last Rounds Played': 0 }
-#     player_list.append(player_stats)
