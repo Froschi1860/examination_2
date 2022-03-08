@@ -63,23 +63,18 @@ class Game:
     
     def sort_cards(self, pot, winner):
         print(f"{winner}, you can sort the pot before continuing")
-
         while True:
             for i in pot: print(i.classic, end=f": {pot.index(i)} | ")
             print()
-
             print("Input SWITCH to switch cards | DONE when you are finish: ", end=" ")
             res = input()
             if res.upper() == "SWITCH":
-
                 print("Input first card position (int): ", end="")
                 card1_pos = int(input())
                 print("Input second card position (int): ", end="")
                 card2_pos = int(input())
-
                 if (card1_pos >= 0 and card1_pos <= len(pot)) and (card2_pos >= 0 and card2_pos <= len(pot)):
                     pot[card1_pos], pot[card2_pos] = pot[card2_pos], pot[card1_pos]
-
             elif res.upper() == "DONE": return pot
 
 
@@ -108,12 +103,12 @@ class Game:
     
             if p1_card.value > p2_card.value:
                 winner = self.player_1
-                if len(pot) > 2 and self.player_1 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
+                if len(pot) > 2 and self.player_1.player_id != "com" and simulate == False: pot = self.sort_cards(pot, winner)
                 [self.p1_hand.append(x) for x in pot]
 
             elif p1_card.value < p2_card.value:
                 winner = self.player_2
-                if len(pot) > 2 and self.player_2 != "com" and simulate == False: pot = self.sort_cards(pot, winner)
+                if len(pot) > 2 and self.player_2.player_id != "com" and simulate == False: pot = self.sort_cards(pot, winner)
                 [self.p2_hand.append(x) for x in pot]
 
             print(f"{winner} wins the round !")
@@ -126,7 +121,8 @@ class Game:
 
     def start(self):
         self.p1_hand, self.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
-
+        print(self.player_1, self.player_2)
+        
         while not self.game_over:
             print("Press ENTER to draw, Type EXIT to quit game or CHEAT to simulate the game: ", end="")
             res = input()
