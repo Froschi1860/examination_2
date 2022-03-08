@@ -4,26 +4,72 @@ import highscore
 class testHighscore(unittest.TestCase):
     
     def setUp(self):
-        self.mock_player_list = ([
+        '''sets up a mock list for the tests to run within the class'''
+        self.mock_player_list = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }, 
             
             {'Player ID':"test player 2" ,'Total Games Won': 1,
             'Total Games Played': 0 , 'Total Rounds Played': 0, 
+            'Last Game Won': False, 'Last Rounds Played': 0 },
+        
+            {'Player ID':"test player 3" ,'Total Games Won': 4,
+            'Total Games Played': 5, 'Total Rounds Played': 0, 
             'Last Game Won': False, 'Last Rounds Played': 0 }
-            ])
+            ]
         
 # test initializer  
     def test_init_function(self):
+        '''tests that the highscore object is made'''
         test_highscore = highscore.Highscore(self.mock_player_list)
         self.assertIsInstance(test_highscore, highscore.Highscore)
-    
-    def test_sort_score_results_by_winner(self):
         
+
+ # test sort functionality    
+    def test_sort_score_results_by_winner(self):
+        '''tests that the first index is the one with the most games won and continues in decreasing order'''
         test_highscore = highscore.Highscore(self.mock_player_list)
-        test_scoreboard = test_highscore.sort_score_results
-        self.assertTrue(test_scoreboard, len(test_scoreboard) == 4)
+        test_scoreboard = test_highscore.sort_score_results()
+        
+        first_player_in_scoreboard = test_scoreboard[0]
+        first_score = first_player_in_scoreboard[1]
+        
+        second_player_in_scoreboard = test_scoreboard[1]
+        second_score = second_player_in_scoreboard[1]
+        
+        third_player_in_scoreboard = test_scoreboard[2]
+        third_score = third_player_in_scoreboard[1]
+        
+        self.assertGreater(first_score, second_score)
+        self.assertGreater(second_score, third_score)
+
+    def test_length_scoreboard_stats(self):
+        '''tests that each player within the scoreboard only contains 4 statistics'''
+        test_highscore = highscore.Highscore(self.mock_player_list)
+        test_scoreboard = test_highscore.sort_score_results()
+        self.assertEqual(len(test_scoreboard[0]), 4)
+        self.assertEqual(len(test_scoreboard[1]), 4)
+        self.assertEqual(len(test_scoreboard[2]), 4)
+        self.assertGreater(len(test_scoreboard[0]),3)
+        self.assertLess(len(test_scoreboard[0]),5)
+        
+
+# test display scoreboard        
+    def test_display_scoreboard_results(self):
+        test_highscore = highscore.Highscore(self.mock_player_list)
+        test_display = test_highscore.display_highscore()
+        desired_output = '''
+HIGHSCORE RESULTS:\n
+---------------------------------------------------------------------\n
+PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
+---------------------------------------------------------------------''
+test player 3  4            5                    0
+test player 2  1            1                    0
+test player 1  0            1                    0'''
+        self.assertEqual(test_display, desired_output )
+        
+        
         
         
         
