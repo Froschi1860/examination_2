@@ -57,6 +57,7 @@ class testHighscore(unittest.TestCase):
 
 # test display scoreboard        
     def test_display_scoreboard_results(self):
+        '''tests that the desired display will be output to the user'''
         test_highscore = highscore.Highscore(self.mock_player_list)
         test_display = test_highscore.display_highscore()
         desired_output = '''
@@ -68,24 +69,6 @@ test player 3  4            5                    0
 test player 2  1            1                    0
 test player 1  0            1                    0'''
         self.assertEqual(test_display, desired_output )
-        
-        
-        
-        
-        
-  
-    
-#     def sort_score_results(self):
-#         '''sorts the highscore based on which player has acheived the most wins and truncates the scoreboard to 
-#         only show the desired statistics for each player'''
-#         scoreboard = []
-#         ranked_list_of_dicts = sorted(self.player_list, key=lambda player: player['Total Games Won'], reverse = True)
-#         for player in ranked_list_of_dicts:
-#             stats = player.values()
-#             player_stats = list(stats)
-#             scoreboard.append(player_stats[0:4])
-        
-#         return scoreboard
 
 #     def display_highscore(self):
 #         '''displays the highscore according to a particular format'''
