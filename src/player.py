@@ -94,6 +94,7 @@ def write_player_data(player_list):
             
 
 def read_player_data():
+    '''This method reads data from an already existing json file if the user has played the game before'''
     player_list = []
     try:
         if file_exists('Player_stats.json'): 
