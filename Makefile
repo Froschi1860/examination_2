@@ -45,7 +45,7 @@ installed:
 #
 clean:
 	@$(call MESSAGE,$@)
-	rm -f .coverage *.pyc
+	rm -f .coverage *.pyc src/.coverage
 	rm -rf __pycache__
 	rm -rf htmlcov
 
@@ -61,6 +61,7 @@ clean-all: clean clean-doc
 # ---------------------------------------------------------
 # Work with static code linters.
 #
+# Works, nut shows import errrors
 pylint:
 	@$(call MESSAGE,$@)
 	-cd src/ && $(PYTHON) -m pylint *.py
@@ -103,10 +104,11 @@ test: lint coverage
 # Work with generating documentation.
 #
 .PHONY: pydoc
+# Does not yet work -> When working, include in target doc
 pydoc:
 	@$(call MESSAGE,$@)
 	install -d doc/pydoc
-	$(PYTHON) -m pydoc -w src/*.py
+	$(PYTHON) -m pydoc -w src
 	mv *.html doc/pydoc
 
 pdoc:
@@ -121,7 +123,7 @@ pyreverse:
 	dot -Tpng packages.dot -o doc/pyreverse/packages.png
 	rm -f classes.dot packages.dot
 
-doc: pdoc pyreverse #pydoc sphinx
+doc: pdoc pyreverse
 
 
 
@@ -144,11 +146,12 @@ radon-hal:
 	@$(call MESSAGE,$@)
 	radon hal src
 
+# Does not yet work -> When working, include in target metrics
 cohesion:
 	@$(call MESSAGE,$@)
 	cohesion --directory src
 
-metrics: radon-cc radon-mi radon-raw radon-hal cohesion
+metrics: radon-cc radon-mi radon-raw radon-hal
 
 
 
@@ -158,3 +161,13 @@ metrics: radon-cc radon-mi radon-raw radon-hal cohesion
 bandit:
 	@$(call MESSAGE,$@)
 	bandit --recursive src
+
+
+
+
+# ---------------------------------------------------------
+# Start the game war
+#
+start-game:
+	@$(call MESSAGE,$@)
+	$(PYTHON) src/main.py
