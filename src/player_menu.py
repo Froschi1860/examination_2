@@ -1,8 +1,29 @@
-import cmd, player
+'''The module contains a class that creates and initialises the player sub-menu.
+A test mode is availabe for unit tests.
+To leave the sub-menu ingame mode a player must be chosen.'''
+
+import cmd
+import player
 
 
 class PlayerMenu(cmd.Cmd):
-    
+    '''This class provides functionality for the sub-menu player.
+
+The menu is displayed when entered.
+
+Case-insensitivity is ensured.
+
+Commands:
+choose <player_id> - Open an existing player profile
+create <player_id> - Create a new player profile
+id <player_id> - Change id of current player
+current - Display current Player
+menu - Display menu
+exit - Return to main menu
+
+Command help <command> is available.
+'''
+
     prompt = "\n(Player menu) "
 
     menu_message = """
@@ -25,7 +46,7 @@ exit - Return to main menu"""
         self.test_mode = test_mode
         self.test_cmd = test_cmd
 
-    def cmdloop(self):
+    def cmdloop(self, intro=None):
         '''Run menu and return current player in game mode'''
         if self.test_mode:
             self.onecmd(self.test_cmd)
@@ -71,7 +92,7 @@ exit - Return to main menu"""
         new_player_id = line
         if new_player_id == "":
             print("Enter a player id to change the id of the current player: id <player_id>")
-        elif self.player_1 == None:
+        elif self.player_1 is None:
             print("Choose or create a player before changing the id")
         elif player.check_player_id(new_player_id):
             print(f"A player with the id {new_player_id} already exists")
@@ -80,22 +101,24 @@ exit - Return to main menu"""
 
     def do_current(self, line):
         '''Display current player'''
-        if self.player_1 == None:
+        line.strip()
+        if self.player_1 is None:
             print("\nNo player chosen")
         else:
             print(f"\nCurrent player: {self.player_1}")
 
     def do_menu(self, line):
         '''Display menu'''
+        line.strip()
         print(self.menu_message)
 
     def do_exit(self, line):
         '''Return to main menu after player was chosen'''
-        if self.test_mode:
-            print("Exiting")
-            return True
-        else:
-            if self.player_1 == None:
-                print("\nChoose or create a player to continue")
-            else:
+        line.strip()
+        if not self.test_mode:
+            if self.player_1 is not None:
                 return True
+            print("\nChoose or create a player to continue")
+            return None
+        print("Exiting")
+        return True
