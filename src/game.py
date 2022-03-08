@@ -2,6 +2,7 @@ import card, deck, cardHand, time, player
 
 
 class Game:
+    """Initialize a game object"""
     def __init__(self, player_1, player_2):
         self.player_1 = player_1
         self.player_2 = player_2
@@ -14,17 +15,18 @@ class Game:
 
 
     def print_card(self, p1_card, p2_card, print_info, pot):
+        """Print the cards of the players"""
         self.check_winner(self.p1_hand, self.p2_hand)
         if not self.game_over:
-            p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0)
+            p1_card, p2_card = self.p1_hand.pop(0), self.p2_hand.pop(0) # Take the first card of each hand
     
             print(f"\n{f'{self.player_1}':<12}|{f' {self.player_2}':<12}\n------------|------------" if print_info else "")
             
-            l1 = p1_card.ascii_card.split('\n')
-            l2 = p2_card.ascii_card.split('\n')
-    
-            for i in range(min(len(l1), len(l2))):
-                print(l1[i] + "   " + l2[i])
+            l1 = p1_card.ascii_card.split('\n')         #
+            l2 = p2_card.ascii_card.split('\n')         #    
+                                                        # Used to print both card side to side using ascii
+            for i in range(min(len(l1), len(l2))):      #
+                print(l1[i] + "   " + l2[i])            #
     
             pot.append(p1_card)
             pot.append(p2_card)
@@ -33,6 +35,7 @@ class Game:
 
 
     def print_card_war(self, p1_card, p2_card, pot, sleep_time=0.5):
+        """Print the cards of the players when there is a war"""
         for i in range(3):
             self.check_winner(self.p1_hand, self.p2_hand)
             if not self.game_over:
@@ -45,12 +48,13 @@ class Game:
     
                 pot.append(p1_card)
                 pot.append(p2_card)
-                time.sleep(sleep_time)
+                time.sleep(sleep_time) # Create the small pause in the terminal when there is a war
 
         return p1_card, p2_card
 
 
     def check_winner(self, p1_hand, p2_hand):
+        """Check if the game is over and assign the winner and loser of the game"""
         if len(p1_hand) == 0:
             self.game_winner = self.player_2
             self.game_loser = self.player_1
@@ -62,6 +66,7 @@ class Game:
 
     
     def sort_cards(self, pot, winner):
+        """Prompt the user to sort the pot"""
         print(f"{winner}, you can sort the pot before continuing")
         while True:
             for i in pot: print(i.classic, end=f": {pot.index(i)} | ")
@@ -74,20 +79,22 @@ class Game:
                 print("Input second card position (int): ", end="")
                 card2_pos = int(input())
                 if (card1_pos >= 0 and card1_pos <= len(pot)) and (card2_pos >= 0 and card2_pos <= len(pot)):
-                    pot[card1_pos], pot[card2_pos] = pot[card2_pos], pot[card1_pos]
+                    pot[card1_pos], pot[card2_pos] = pot[card2_pos], pot[card1_pos] # Swtich cards placements
             elif res.upper() == "DONE": return pot
 
 
     def end_game(self):
+        """Terminate the game by updating the players stats"""
         self.game_winner.update_player_stats(True, self.rounds)
         self.game_loser.update_player_stats(False, self.rounds)
         player.write_player_data(player.player_list)
 
     
     def draw(self, simulate=False):
+        """Draw the cards, possibility to simulate the game"""
         while not self.game_over:
             pot = []
-            p1_card, p2_card, winner = None, None, None
+            p1_card, p2_card, winner = None, None, None 
             p1_card, p2_card = self.print_card(p1_card, p2_card, True, pot)
 
             while (p1_card.value == p2_card.value) or (p1_card.suit == p2_card.suit) and not self.game_over:
@@ -120,10 +127,10 @@ class Game:
 
 
     def start(self):
-        self.p1_hand, self.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
-        print(self.player_1, self.player_2)
+        """Start the game"""
+        self.p1_hand, self.p2_hand = deck.Deck.deal_cards(deck.Deck().deck) # Create the Deck
         
-        while not self.game_over:
+        while not self.game_over: # Main loop of the game, keep running until the game is over
             print("Press ENTER to draw, Type EXIT to quit game or CHEAT to simulate the game: ", end="")
             res = input()
 
@@ -131,4 +138,4 @@ class Game:
             elif res.upper() == "EXIT": return
             elif res.upper() == "CHEAT": self.draw(True)
         self.end_game()
-        return True
+        return True # Return a true statement to get back the previous menu is the cmd loop
