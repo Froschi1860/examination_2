@@ -1,8 +1,11 @@
 import unittest
+from xml.etree.ElementTree import tostring
 import player
 from unittest.mock import patch, mock_open
 import json
 class testPlayer(unittest.TestCase):
+    
+    
     
     
     def test_init_with_one_argument(self):
@@ -77,35 +80,49 @@ class testPlayer(unittest.TestCase):
     #testing changing player id
     def test_change_player_id(self):
         '''test that a player's id is changed'''
-        pass
+        test_player = player.Player("test")
+        new_id = "changed_id"
+        test_player.change_player_id(new_id)
+        self.assertEqual(test_player.player_id, "changed_id")
+        self.assertNotEqual(test_player.player_id, "test")
+    
     
     #testing updating player stats 
     def test_update_statistics_game_won(self):
         '''test updates statistics for a winning game'''
         pass
     
+    
     def test_update_statistics_game_lost(self):
         '''test updates statistics for a losing game'''
         pass
         
+    
     #test to String method
     def test_return_player_id_as_string(self):
         '''tests that the selected player's name is returned as a string'''
-        pass
+        test_player = player.Player("test")
+        name = test_player
+        self.assertEqual("test", name)
+        #fails 
+    
     
     #test choose player
     def test_choose_existing_player(self):
         '''tests that a player from the player list is chosen'''
         pass
 
+
     def test_choose_non_existing_player(self):
         '''tests that nothing is returned if a player that does not exist is chosen'''
         pass
+    
     
     #test player id 
     def test_check_player_id_exists(self):
         '''tests that it returns true if a player who is already on the list exists'''
         pass
+    
     
     def test_check_player_id_not_exists(self):
         '''tests that it returns false if a player is not already on the list'''
