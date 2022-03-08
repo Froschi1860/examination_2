@@ -1,4 +1,3 @@
-from logging import captureWarnings
 import unittest, io, sys, gameMenu, highscore, mainMenu, player, playerMenu, rules
 
 
