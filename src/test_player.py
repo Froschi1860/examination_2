@@ -1,31 +1,41 @@
 import unittest
 import player
-
+from unittest.mock import patch, mock_open
+import json
 class testPlayer(unittest.TestCase):
     
+    
+    # def setUp(self):
+    #     '''creates a default player for testing each class'''
+    #     pass
+    
+    # def tearDown(self):
+    #     '''removes default player for testing each class'''
+    #     pass
+    
     #testing init
-    def test_init_with_one_argument():
+    def test_init_with_one_argument(self):
         '''test that a player object is made with just one argument'''
     
     
     def test_init_with_two_arguments(self):
-        '''test if a player object is written with two arguments '''
+        '''test player with two arguments '''
     
     
     def test_init_with_three_arguments(self):
-        '''test if a player object is written with three arguments '''
+        '''test player with three arguments '''
     
     
     def test_init_with_four_arguments(self):
-        '''test if a player object is written with four arguments '''
+        '''test player with four arguments '''
 
 
     def test_init_with_five_arguments(self):
-        '''test if a player object is written with five arguments '''
+        '''test player with five arguments '''
 
  
     def test_init_with_all_arguments(self):
-        '''test if a player object is written with all arguments '''    
+        '''test player with all arguments '''    
 
     
     #testing changing player id
@@ -72,4 +82,24 @@ class testPlayer(unittest.TestCase):
     def test_player_is_added_two_arguments(self):
         '''tests that a new player is still added with default stats even if multiple arguments are given'''
 
+    
+    #test write player data 
+    
+    def test_write_player_data(self):
+        '''tests if data from the player list is saved into a JSON file'''
+        with patch ('player.write_player_data') as mocked_file:
+            pass
+    
+    #test read player data
+    
+    
+    def test_read_player_data_with_existing_file(self):
+        '''tests if data is read and from a json file and added into the player list'''
+        
+    
+    def test_read_player_data_with_no_file(self):
+        '''tests to see if when no data is found from a json file the player list remains empty'''
+    
 
+if __name__ == '__main__':
+    unittest.main
