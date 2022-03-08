@@ -1,7 +1,28 @@
-import cmd, game, player
+'''The module contains a class that creates and initialises the game sub-menu.
+A test mode is availabe for unit tests.
+In game mode a player must be provided as player_1 at instantiation.'''
+
+import cmd
+import game
+import player
 
 
 class GameMenu(cmd.Cmd):
+    '''This class provides functionality for the sub-menu game.
+
+The menu is displayed when entered.
+
+Case-insensitivity is ensured.
+
+Commands:
+start - Start a new game with current setup
+setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
+current - Display currrent setup
+menu - Display menu
+exit - Return to main menu
+
+Command help <command> is available.
+'''
 
     prompt = "\n(Game menu) "
 
@@ -12,31 +33,32 @@ Game menu
 Please choose one of the folowing options:
 
 start - Start a new game with current setup
-setup <mode:"pvc"/"pvp"> <only mode pvp:"player_2_id"> - Change setup
+setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
 current - Display currrent setup
 menu - Display menu
 exit - Return to main menu"""
 
-    def __init__(self, player_1: player, player_2 : player=None, setup=("pvc", "com"), test_mode=False, test_cmd=""):
+    def __init__(self, player_1: player, player_2 : player=None, setup=("pvc", "com"),
+        test_mode=False, test_cmd=""):
         super().__init__()
-        self.player_1 = player_1 
-        if player_2 == None:
+        self.player_1 = player_1
+        if player_2 is None:
             self.player_2 = player.choose_player("com")
         else:
             self.player_2 = player_2
         self.test_mode = test_mode
         self.test_cmd = test_cmd
         self.setup = setup
-    
-    def cmdloop(self):
+
+    def cmdloop(self, intro=None):
         '''Run menu and return setup to main menu'''
         if self.test_mode:
             self.onecmd(self.test_cmd)
             self.onecmd("exit")
         else:
             super().cmdloop()
-            return self.setup, self.player_2
-    
+        return self.setup, self.player_2
+
     def precmd(self, line: str):
         '''Assure case-insensitivity'''
         return line.lower()
@@ -47,16 +69,18 @@ exit - Return to main menu"""
 
     def do_start(self, line):
         '''Start a new game with current setup'''
+        line.strip()
         new_game = game.Game(player_1=self.player_1, player_2=self.player_2)
         if self.test_mode:
             print("Game started")
             return new_game
-        else:
-            return new_game.start()
+        return new_game.start()
 
     def do_setup(self, line):
-        '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp was chosen'''
-        invalid_input_msg = "\nThe inputs of arguments was invalid. Type help setup for instructions."
+        '''Change setup: First argument game mode pvc/pvp; Second argument: Id of player 2 if pvp
+was chosen'''
+        invalid_input_msg = ("\nThe inputs of arguments was invalid. Type help setup for " +
+            "instructions.")
         args = line.split()
         if len(args) >= 1 and args[0] == "pvc":
             self.setup = ("pvc", "com")
@@ -76,6 +100,7 @@ exit - Return to main menu"""
 
     def do_current(self, line):
         '''Display currrent setup'''
+        line.strip()
         if self.setup[0] == "pvc":
             mode = "player vs computer"
         else:
@@ -84,12 +109,12 @@ exit - Return to main menu"""
 
     def do_menu(self, line):
         '''Display menu'''
+        line.strip()
         print(self.menu_message)
 
     def do_exit(self, line):
         '''Return to main menu'''
+        line.strip()
         if self.test_mode:
             print("Exiting")
-            return True
-        else:
-            return True
+        return True

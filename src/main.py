@@ -1,4 +1,5 @@
-import mainMenu, player
+import main_menu
+import player
  
 
 welcome_message = """\nWelcome to war! How about a game of cards?
@@ -10,7 +11,7 @@ def main():
     player.player_list = player.read_player_data()
     if not player.check_player_id("com"):
         player.add_player(player.Player("com").player_id)
-    mainMenu.MainMenu().cmdloop()
+    main_menu.MainMenu().cmdloop()
     player.write_player_data(player.player_list)
     print("Thank you for playing!")
 

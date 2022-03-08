@@ -1,4 +1,4 @@
-import unittest, gameMenu, player, game, io, sys
+import unittest, game_menu, player, game, io, sys
 
 
 class TestGameMenu(unittest.TestCase):
@@ -8,8 +8,8 @@ class TestGameMenu(unittest.TestCase):
     def test_init_without_player_2(self):
         '''Test initialisation with one player and default setup'''
         test_player_1 = player.Player(player_id="test")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1)
-        self.assertIsInstance(test_gameMenu, gameMenu.GameMenu)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1)
+        self.assertIsInstance(test_gameMenu, game_menu.GameMenu)
         self.assertEqual(test_gameMenu.player_1.player_id, "test")
         self.assertEqual(test_gameMenu.player_2.player_id, "com")
         self.assertEqual(test_gameMenu.setup, ("pvc", "com"))
@@ -18,7 +18,7 @@ class TestGameMenu(unittest.TestCase):
         '''Test initialisation with two players and changes setup'''
         test_player_1 = player.Player("test_1")
         test_player_2 = player.Player("test_2")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2, setup=("pvp", "test_2"))
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, player_2=test_player_2, setup=("pvp", "test_2"))
         self.assertEqual(test_gameMenu.player_1.player_id, "test_1")
         self.assertEqual(test_gameMenu.player_2.player_id, "test_2")
         self.assertEqual(test_gameMenu.setup, ("pvp", "test_2"))
@@ -28,14 +28,14 @@ class TestGameMenu(unittest.TestCase):
     def test_cmdloop_in_test_mode_without_test_cmd_terminates(self):
         '''Test if cmdloop terminates if no test_cmd is given'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         test_gameMenu.cmdloop()
         self.assertTrue(True)
 
     def test_cmdloop_in_test_mode_with_test_cmd_terminates(self):
         '''Test if cmdloop terminates if command is given'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current")
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current")
         test_gameMenu.cmdloop()
         self.assertTrue(True)
 
@@ -44,7 +44,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="start").cmdloop()
+        game_menu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="start").cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
         self.assertEqual(printed_output, "Game started\nExiting\n")
@@ -54,7 +54,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="setup invalid").cmdloop()
+        game_menu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="setup invalid").cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
         self.assertEqual(printed_output, "\nThe inputs of arguments was invalid. " +
@@ -65,7 +65,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1,test_mode=True, test_cmd="current")
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1,test_mode=True, test_cmd="current")
         test_gameMenu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
@@ -77,7 +77,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="menu")
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="menu")
         test_gameMenu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
@@ -88,7 +88,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_1")
         captured_output = io.StringIO()
         sys.stdout = captured_output
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="exit")
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="exit")
         test_gameMenu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
@@ -99,7 +99,7 @@ class TestGameMenu(unittest.TestCase):
     def test_precmd_with_uppercase_input(self):
         '''Assert if input is converted to lowercase'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1)
         res = test_gameMenu.precmd("UPPER")
         exp = "upper"
         self.assertEqual(res, exp)
@@ -107,7 +107,7 @@ class TestGameMenu(unittest.TestCase):
     def test_precmd_with_lowercase_input(self):
         '''Assert if input is unchanged'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1)
         res = test_gameMenu.precmd("lower")
         exp = "lower"
         self.assertEqual(res, exp)
@@ -117,7 +117,7 @@ class TestGameMenu(unittest.TestCase):
     def test_preloop_prints_menu(self):
         '''Assert if preloop() prints menu_message'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.preloop()
@@ -130,7 +130,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_start_one_player_default_setup(self):
         '''Check if game is started correctly with one player'''
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         res = test_gameMenu.onecmd("start")
         self.assertIsInstance(res, game.Game)
         self.assertEqual(res.player_1.player_id, "test_1")
@@ -140,7 +140,7 @@ class TestGameMenu(unittest.TestCase):
         '''Check if game is started correctly with two players and changes setup'''
         test_player_1 = player.Player("test_1")
         test_player_2 = player.Player("test_2")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2, test_mode=True,
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, player_2=test_player_2, test_mode=True,
                 setup=("pvp", "test_2"))
         res = test_gameMenu.onecmd("start")
         self.assertEqual(res.player_1.player_id, "test_1")
@@ -154,7 +154,7 @@ class TestGameMenu(unittest.TestCase):
         player.add_player("com")
         test_player_1 = player.Player("test_1")
         test_player_2 = player.Player("test_2")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2, test_mode=True,
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, player_2=test_player_2, test_mode=True,
                 setup=("pvp", "test_2"))
         test_gameMenu.onecmd("setup pvc")
         self.assertEqual(test_gameMenu.player_2.player_id, "com")
@@ -165,7 +165,7 @@ class TestGameMenu(unittest.TestCase):
         com = player.Player("com")
         player.add_player("com")
         test_player_1 = player.Player("test_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         test_gameMenu.onecmd("setup pvc invalid")
         self.assertEqual(test_gameMenu.player_2.player_id, "com")
         self.assertEqual(test_gameMenu.setup, ("pvc", "com"))
@@ -175,7 +175,7 @@ class TestGameMenu(unittest.TestCase):
         test_player_1 = player.Player("test_player_1")
         existing_test_player = player.Player("existing_test_player")
         player.add_player("existing_test_player")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_setup("pvp existing_test_player")
@@ -188,7 +188,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_setup_with_args_pvp_and_non_existing_player_plus_invalid(self):
         '''Check if setup and player 2 are correctly changed for mode pvp and existing player 2'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_setup("pvp non_existing_test_player invalid")
@@ -201,7 +201,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_setup_with_no_arg(self):
         '''Check if correct error message is printed for no given arg'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_setup("")
@@ -212,7 +212,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_setup_with_invalid_arg(self):
         '''Check if correct error message is printed for invalid arg'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_setup("invalid")
@@ -225,7 +225,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_current_with_default_setup(self):
         '''Check if current setup is displayed correctly for player vs computer'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_current("")
@@ -238,7 +238,7 @@ class TestGameMenu(unittest.TestCase):
         '''Check if current setup is displayed correctly for player vs player'''
         test_player_1 = player.Player("test_player_1")
         test_player_2 = player.Player("test_player_2")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, player_2=test_player_2,
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, player_2=test_player_2,
             setup=("pvp", "test_player_2"), test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
@@ -253,7 +253,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_menu(self):
         '''Assert if menu is printed correctly'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         test_gameMenu.do_menu("")
@@ -266,7 +266,7 @@ class TestGameMenu(unittest.TestCase):
     def test_do_exit(self):
         '''Check if do_exit returns True'''
         test_player_1 = player.Player("test_player_1")
-        test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
+        test_gameMenu = game_menu.GameMenu(player_1=test_player_1, test_mode=True)
         res = test_gameMenu.do_exit("")
         self.assertTrue(res)
 
