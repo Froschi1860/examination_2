@@ -50,6 +50,7 @@ end - End the programme"""
     def do_player(self, line):
         '''Open the player menu'''
         if self.test_mode:
+            print("Player menu entered")
             return playerMenu.PlayerMenu()
         else:
             self.player_1 = playerMenu.PlayerMenu(player_1=self.player_1).cmdloop()
@@ -57,6 +58,7 @@ end - End the programme"""
     def do_game(self, line):
         '''Set up and start a new game'''
         if self.test_mode:
+            print("Game menu entered")
             return gameMenu.GameMenu(player_1=self.player_1)
         else:
             game_menu = gameMenu.GameMenu(player_1=self.player_1, player_2=self.player_2, setup=self.setup)
@@ -65,6 +67,7 @@ end - End the programme"""
     def do_highscore(self, line):
         '''Display player statistics'''
         if self.test_mode:
+            print("Highscore entered")
             return highscore.Highscore(player.player_list)
         else:
             highscore.Highscore(player.player_list).display_highscore()
@@ -83,4 +86,8 @@ end - End the programme"""
 
     def do_end(self, line):
         '''End the programme'''
-        return True
+        if self.test_mode:
+            print("Ending")
+            return True
+        else:
+            return True

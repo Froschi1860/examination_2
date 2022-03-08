@@ -1,12 +1,5 @@
-import unittest
-import io
-import sys
-import gameMenu
-import highscore
-import mainMenu
-import player
-import playerMenu
-import rules
+from logging import captureWarnings
+import unittest, io, sys, gameMenu, highscore, mainMenu, player, playerMenu, rules
 
 
 class testMainMenu(unittest.TestCase):
@@ -39,18 +32,87 @@ class testMainMenu(unittest.TestCase):
 
     # Test cmdloop
     def test_cmdloop_in_test_mode_without_test_cmd_terminates(self):
-        '''Test if test mode terminates if no test_cmd is given'''
+        '''Test if cmdloop terminates if no test_cmd is given'''
         test_mainMenu = mainMenu.MainMenu(test_mode=True)
         test_mainMenu.cmdloop()
         self.assertTrue(True)
 
     def test_cmdloop_in_test_mode_with_test_cmd_terminates(self):
-        '''Test if test mode terminates if command is given'''
+        '''Test if cmdloop terminates if command is given'''
         test_player_1 = player.Player("test_1")
         test_mainMenu = mainMenu.MainMenu(player_1=test_player_1, test_mode=True, test_cmd="rules")
         test_mainMenu.cmdloop()
         self.assertTrue(True)
 
+    def test_cmdloop_in_test_mode_with_test_cmd_player(self):
+        '''Test if input player activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="player")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Player menu entered\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_game(self):
+        '''Test if input game activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="game")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Game menu entered\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_highscore(self):
+        '''Test if input highscore activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="highscore")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Highscore entered\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_rules(self):
+        '''Test if input rules activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="rules")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, rules.game_rules + "\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_current(self):
+        '''Test if input current activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="current")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "\nCurrent player: None\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_menu(self):
+        '''Test if input menu activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="menu")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, test_mainMenu.menu_message + "\nEnding\n")
+
+    def test_cmdloop_in_test_mode_with_test_cmd_end(self):
+        '''Test if input end activates respective option'''
+        test_mainMenu = mainMenu.MainMenu(test_mode=True, test_cmd="end")
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.cmdloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Ending\nEnding\n")
 
 
     # Test precmd

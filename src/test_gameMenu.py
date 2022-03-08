@@ -26,14 +26,14 @@ class TestGameMenu(unittest.TestCase):
 
     # Test cmdloop
     def test_cmdloop_in_test_mode_without_test_cmd_terminates(self):
-        '''Test if test mode terminates if no test_cmd is given'''
+        '''Test if cmdloop terminates if no test_cmd is given'''
         test_player_1 = player.Player("test_1")
         test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True)
         test_gameMenu.cmdloop()
         self.assertTrue(True)
 
     def test_cmdloop_in_test_mode_with_test_cmd_terminates(self):
-        '''Test if test mode terminates if command is given'''
+        '''Test if cmdloop terminates if command is given'''
         test_player_1 = player.Player("test_1")
         test_gameMenu = gameMenu.GameMenu(player_1=test_player_1, test_mode=True, test_cmd="current")
         test_gameMenu.cmdloop()
