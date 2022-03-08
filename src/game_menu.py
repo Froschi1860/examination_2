@@ -52,12 +52,12 @@ exit - Return to main menu"""
 
     def cmdloop(self, intro=None):
         '''Run menu and return setup to main menu'''
-        if not self.test_mode:
+        if self.test_mode:
+            self.onecmd(self.test_cmd)
+            self.onecmd("exit")
+        else:
             super().cmdloop()
-            return self.setup, self.player_2
-        self.onecmd(self.test_cmd)
-        self.onecmd("exit")
-        return None
+        return self.setup, self.player_2
 
     def precmd(self, line: str):
         '''Assure case-insensitivity'''

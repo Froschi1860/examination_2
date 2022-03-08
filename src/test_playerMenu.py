@@ -114,9 +114,21 @@ class TestPlayerMenu(unittest.TestCase):
 
 
     # Test preloop()
-    def test_preloop_prints_menu(self):
-        '''Assert if preloop() prints menu_message'''
+    def test_preloop_without_chosen_player(self):
+        '''Assert if preloop() prints primpt to choose player and menu_message'''
         menu = player_menu.PlayerMenu()
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        menu.preloop()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "\nPlease choose or create a player to start\n" +
+            menu.menu_message + "\n")
+
+    def test_preloop_with_chosen_player(self):
+        '''Assert if preloop() prints only menu_message'''
+        test_player = player.Player("test_player")
+        menu = player_menu.PlayerMenu(player_1=test_player)
         captured_output = io.StringIO()
         sys.stdout = captured_output
         menu.preloop()

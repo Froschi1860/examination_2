@@ -4,7 +4,7 @@ import player
 class testPlayer(unittest.TestCase):
     
     #testing init
-    def test_init_with_one_argument():
+    def test_init_with_one_argument(self):
         '''test that a player object is made with just one argument'''
     
     

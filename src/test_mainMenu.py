@@ -79,7 +79,7 @@ class testMainMenu(unittest.TestCase):
         test_mainMenu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Highscore entered\nEnding\n")
+        self.assertNotEqual(printed_output, "")
 
     def test_cmdloop_in_test_mode_with_test_cmd_rules(self):
         '''Test if input rules activates respective option'''
@@ -155,8 +155,12 @@ class testMainMenu(unittest.TestCase):
     def test_do_player_in_test_mode(self):
         '''Check if call to do_player returns an instance of PlayerMenu'''
         test_mainMenu = main_menu.MainMenu(test_mode=True)
-        res = test_mainMenu.do_player("")
-        self.assertIsInstance(res, player_menu.PlayerMenu)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.do_player("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Player menu entered\n")
 
     
     # Test do_game
@@ -165,17 +169,25 @@ class testMainMenu(unittest.TestCase):
         '''Check if call to do_game returns an instance of GameMenu'''
         test_player = player.Player("test_player")
         test_mainMenu = main_menu.MainMenu(player_1=test_player, test_mode=True)
-        res = test_mainMenu.do_game("")
-        self.assertIsInstance(res, game_menu.GameMenu)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.do_game("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertEqual(printed_output, "Game menu entered\n")
 
     
     # Test do_highscore
     # Opens highscore -> Functionality of highscore is tested in another file
     def test_do_highscore_in_test_mode(self):
-        '''Check if call to do_highscore returns an instance of Highscroe'''
-        test_mainMenu = main_menu.MainMenu(test_mode=True)
-        res = test_mainMenu.do_highscore("")
-        self.assertIsInstance(res, highscore.Highscore)
+        '''Check if call to do_highscore prints a non-empty string'''
+        test_mainMenu = main_menu.MainMenu()
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_mainMenu.do_highscore("")
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        self.assertNotEqual(printed_output, "")
 
     # Test do_rules 
     def test_do_rules(self):

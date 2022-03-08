@@ -62,7 +62,6 @@ end - End the programme"""
             self.onecmd("end")
         else:
             if self.player_1 is None:
-                print("\nPlease choose or create a player to start")
                 self.onecmd(line="player")
             super().cmdloop()
 
@@ -77,30 +76,24 @@ end - End the programme"""
     def do_player(self, line):
         '''Open the player menu'''
         line.strip()
-        if self.test_mode:
+        if not self.test_mode: # Start player menu
+            self.player_1 = player_menu.PlayerMenu(player_1=self.player_1).cmdloop()
+        else:
             print("Player menu entered")
-            return player_menu.PlayerMenu()
-        self.player_1 = player_menu.PlayerMenu(player_1=self.player_1).cmdloop()
-        return None
 
     def do_game(self, line):
         '''Set up and start a new game'''
         line.strip()
-        if self.test_mode:
+        if not self.test_mode: # Start game menu
+            self.setup, self.player_2 = game_menu.GameMenu(player_1=self.player_1,
+                player_2=self.player_2, setup=self.setup).cmdloop()
+        else:
             print("Game menu entered")
-            return game_menu.GameMenu(player_1=self.player_1)
-        self.setup, self.player_2 = game_menu.GameMenu(player_1=self.player_1,
-            player_2=self.player_2, setup=self.setup).cmdloop()
-        return None
 
     def do_highscore(self, line):
         '''Display player statistics'''
         line.strip()
-        if self.test_mode:
-            print("Highscore entered")
-            return highscore.Highscore(player.player_list)
         highscore.Highscore(player.player_list).display_highscore()
-        return None
 
     def do_rules(self, line):
         '''Display the game rules'''

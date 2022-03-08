@@ -67,7 +67,7 @@ pylint:
 
 flake8:
 	@$(call MESSAGE,$@)
-	-flake8
+	-cd src/ && flake8
 
 lint: flake8 pylint
 
@@ -87,13 +87,14 @@ codestyle: black
 #
 unittest:
 	@$(call MESSAGE,$@)
-	 cd src/ && $(PYTHON) -m unittest discover
+	cd src/ && $(PYTHON) -m unittest discover
 
 coverage:
 	@$(call MESSAGE,$@)
-	coverage run -m unittest discover
-	coverage html
-	coverage report -m
+	cd src/ && coverage run -m unittest discover
+	cd src/ && coverage html
+	cd src/ && coverage report -m
+	mv src/htmlcov/ .
 
 test: lint coverage
 

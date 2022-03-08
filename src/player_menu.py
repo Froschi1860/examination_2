@@ -61,6 +61,8 @@ exit - Return to main menu"""
 
     def preloop(self):
         '''Display menu when menu is entered'''
+        if self.player_1 is None:
+            print("\nPlease choose or create a player to start")
         self.onecmd("menu")
 
     def do_choose(self, line):
