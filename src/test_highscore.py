@@ -22,6 +22,7 @@ class testHighscore(unittest.TestCase):
             'Total Games Played': 5, 'Total Rounds Played': 0, 
             'Last Game Won': False, 'Last Rounds Played': 0 }
             ]
+        
         self.test_display_header = '''
 HIGHSCORE RESULTS:\n
 ---------------------------------------------------------------------\n
@@ -33,7 +34,12 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         '''tests that the highscore object is made'''
         test_highscore = highscore.Highscore(self.test_player_list)
         self.assertIsInstance(test_highscore, highscore.Highscore)
-        
+    
+    
+    def test_init_with_empty_list(self):
+        test_highscore = highscore.Highscore([])
+        self.assertIsInstance(test_highscore, highscore.Highscore)
+
 
  # test sort functionality    
     def test_sort_score_results_by_winner(self):
@@ -52,6 +58,7 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         
         self.assertGreater(first_score, second_score)
         self.assertGreater(second_score, third_score)
+      
 
     def test_length_scoreboard_stats(self):
         '''tests that each player within the scoreboard only contains 4 statistics'''
@@ -62,7 +69,14 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         self.assertEqual(len(test_scoreboard[2]), 4)
         self.assertGreater(len(test_scoreboard[0]),3)
         self.assertLess(len(test_scoreboard[0]),5)
-        
+    
+    def test_player_in_scoreboard(self):
+        test_highscore = highscore.Highscore(self.test_player_list)
+        test_scoreboard = test_highscore.sort_score_results()
+        scoreboard_player = test_scoreboard[0]
+        winning_player = self.test_player_list[2]
+        player_name = winning_player['Player ID']      
+        self.assertIn(player_name, scoreboard_player)
 
 # test display scoreboard       
     def test_display_scoreboard_results(self):
@@ -80,8 +94,17 @@ test player 1  0            1                     0                    \n"""
         self.assertTrue(printed_output != "")
         self.assertEqual(printed_output, desired_output)
 
+    def test_empty_scoreboard(self):
+        empty_list = []
+        test_highscore = highscore.Highscore(empty_list)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_highscore.display_highscore()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        empty_display = self.test_display_header + '\n'
+        self.assertEqual(printed_output, empty_display)
 
 
 if __name__ == '__main__':
     unittest.main()
-      

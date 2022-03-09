@@ -118,15 +118,11 @@ class testPlayer(unittest.TestCase):
         self.assertGreater(test_player.games_played, former_stats_games)
         self.assertEqual(test_rounds, test_player.last_rounds_played)
         
-    
-    #test to String method
-    # def test_return_player_id_as_string(self):
-    #     '''tests that the selected player's name is returned as a string'''
-    #     test_player = player.Player("test")
-    #     self.assertEqual(str(test_player), test_player)
-    #     #fails 
-    #     pass
-    
+    # test to String method 
+    def test_to_string(self):
+        test_player = player.Player("test")
+        self.assertEqual("test", str(test_player))
+        self.assertEqual("boo", str(test_player))
     
     #test choose player
     def test_choose_existing_player(self):
