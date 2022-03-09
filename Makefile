@@ -92,7 +92,7 @@ unittest:
 
 coverage:
 	@$(call MESSAGE,$@)
-	cd src/ && coverage run -m unittest discover
+	cd src/ && -coverage run -m unittest discover
 	cd src/ && coverage html
 	cd src/ && coverage report -m
 	mv src/htmlcov/ .
