@@ -3,11 +3,11 @@ from xml.etree.ElementTree import tostring
 import player
 from unittest.mock import patch, mock_open
 import json
+
+test_player_list = []
+
 class testPlayer(unittest.TestCase):
-    
-    
-    
-    
+        
     def test_init_with_one_argument(self):
         '''test that a player object is made with just one argument'''
         test_player = player.Player("test")
@@ -90,42 +90,77 @@ class testPlayer(unittest.TestCase):
     #testing updating player stats 
     def test_update_statistics_game_won(self):
         '''test updates statistics for a winning game'''
-        pass
+        test_player = player.Player("test")
+        former_stats_wins = test_player.total_games_won
+        former_stats_rounds= test_player.total_rounds_played
+        former_stats_games = test_player.games_played
+        test_winner = True 
+        test_rounds = 10 
+        test_player.update_player_stats(test_winner, test_rounds)
+        self.assertEqual(test_player.player_id, "test")
+        self.assertGreater(test_player.total_games_won, former_stats_wins)
+        self.assertEqual(test_player.total_rounds_played, (former_stats_rounds + test_rounds))
+        self.assertGreater(test_player.games_played, former_stats_games)
+        self.assertEqual(test_rounds, test_player.last_rounds_played)
     
     
     def test_update_statistics_game_lost(self):
         '''test updates statistics for a losing game'''
-        pass
+        test_player = player.Player("test")
+        former_stats_wins = test_player.total_games_won
+        former_stats_rounds= test_player.total_rounds_played
+        former_stats_games = test_player.games_played
+        test_winner = False
+        test_rounds = 10 
+        test_player.update_player_stats(test_winner, test_rounds)
+        self.assertEqual(test_player.player_id, "test")
+        self.assertEqual(test_player.total_games_won, former_stats_wins)
+        self.assertEqual(test_player.total_rounds_played, (former_stats_rounds + test_rounds))
+        self.assertGreater(test_player.games_played, former_stats_games)
+        self.assertEqual(test_rounds, test_player.last_rounds_played)
         
     
     #test to String method
-    def test_return_player_id_as_string(self):
-        '''tests that the selected player's name is returned as a string'''
-        test_player = player.Player("test")
-        name = test_player
-        self.assertEqual("test", name)
-        #fails 
+    # def test_return_player_id_as_string(self):
+    #     '''tests that the selected player's name is returned as a string'''
+    #     test_player = player.Player("test")
+    #     self.assertEqual(str(test_player), test_player)
+    #     #fails 
+    #     pass
     
     
     #test choose player
     def test_choose_existing_player(self):
         '''tests that a player from the player list is chosen'''
-        pass
+        test_list = [{'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }]
+        test_player = player.Player("test")
+        
+        chosen_player = player.choose_player("test")
+        self.assertEqual(test_player, chosen_player)
+
 
 
     def test_choose_non_existing_player(self):
         '''tests that nothing is returned if a player that does not exist is chosen'''
+        test_player = player.Player("test")
+
         pass
     
     
     #test player id 
     def test_check_player_id_exists(self):
         '''tests that it returns true if a player who is already on the list exists'''
+        test_player = player.Player("test")
+
         pass
     
     
     def test_check_player_id_not_exists(self):
         '''tests that it returns false if a player is not already on the list'''
+        test_player = player.Player("test")
+
         pass
     
     
@@ -133,17 +168,23 @@ class testPlayer(unittest.TestCase):
     
     def test_player_is_added_one_argument(self):
         '''tests if a new player is added to the player list with default stats'''
+        test_player = player.Player("test")
+        
         pass
     
     
     def test_player_is_added_two_arguments(self):
         '''tests that a new player is still added with default stats even if multiple arguments are given'''
+        test_player = player.Player("test")
+        
+
         pass
     
     
     #test write player data 
     def test_write_player_data(self):
         '''tests if data from the player list is saved into a JSON file'''
+        test_player = player.Player("test")
         pass
     
     #test read player data

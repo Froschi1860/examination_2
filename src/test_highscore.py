@@ -1,11 +1,15 @@
 import unittest
+from unittest import mock
 import highscore
+import io
+import sys
+from unittest.mock import patch
 
 class testHighscore(unittest.TestCase):
     
     def setUp(self):
         '''sets up a mock list for the tests to run within the class'''
-        self.mock_player_list = [
+        self.test_player_list = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }, 
@@ -18,18 +22,23 @@ class testHighscore(unittest.TestCase):
             'Total Games Played': 5, 'Total Rounds Played': 0, 
             'Last Game Won': False, 'Last Rounds Played': 0 }
             ]
+        self.test_display_header = '''
+HIGHSCORE RESULTS:\n
+---------------------------------------------------------------------\n
+PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
+---------------------------------------------------------------------'''
         
 # test initializer  
     def test_init_function(self):
         '''tests that the highscore object is made'''
-        test_highscore = highscore.Highscore(self.mock_player_list)
+        test_highscore = highscore.Highscore(self.test_player_list)
         self.assertIsInstance(test_highscore, highscore.Highscore)
         
 
  # test sort functionality    
     def test_sort_score_results_by_winner(self):
         '''tests that the first index is the one with the most games won and continues in decreasing order'''
-        test_highscore = highscore.Highscore(self.mock_player_list)
+        test_highscore = highscore.Highscore(self.test_player_list)
         test_scoreboard = test_highscore.sort_score_results()
         
         first_player_in_scoreboard = test_scoreboard[0]
@@ -46,7 +55,7 @@ class testHighscore(unittest.TestCase):
 
     def test_length_scoreboard_stats(self):
         '''tests that each player within the scoreboard only contains 4 statistics'''
-        test_highscore = highscore.Highscore(self.mock_player_list)
+        test_highscore = highscore.Highscore(self.test_player_list)
         test_scoreboard = test_highscore.sort_score_results()
         self.assertEqual(len(test_scoreboard[0]), 4)
         self.assertEqual(len(test_scoreboard[1]), 4)
@@ -55,33 +64,24 @@ class testHighscore(unittest.TestCase):
         self.assertLess(len(test_scoreboard[0]),5)
         
 
-# test display scoreboard        
+# test display scoreboard       
     def test_display_scoreboard_results(self):
         '''tests that the desired display will be output to the user'''
-        test_highscore = highscore.Highscore(self.mock_player_list)
-        test_display = test_highscore.display_highscore()
-        desired_output = '''
-HIGHSCORE RESULTS:\n
----------------------------------------------------------------------\n
-PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
----------------------------------------------------------------------''
-test player 3  4            5                    0
-test player 2  1            1                    0
-test player 1  0            1                    0'''
-        self.assertEqual(test_display, desired_output )
+        test_highscore = highscore.Highscore(self.test_player_list)
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+        test_highscore.display_highscore()
+        sys.stdout = sys.__stdout__
+        printed_output = captured_output.getvalue()
+        print(printed_output)
+        desired_output = self.test_display_header + """test player 3  4            5                     0                    
+test player 2  1            0                     0                    
+test player 1  0            1                     0"""
+        self.assertTrue(printed_output != "")
+        self.assertAlmostEqual(printed_output, desired_output)
 
-#     def display_highscore(self):
-#         '''displays the highscore according to a particular format'''
-        
-#         header = '''
-# HIGHSCORE RESULTS:\n
-# ---------------------------------------------------------------------\n
-# PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED 
-# ---------------------------------------------------------------------'''
-#         print(header)
-#         scoreboard = self.sort_score_results()
-#         for player in scoreboard:
-#             print(f'{player[0]:<15}{player[1]:<13}{player[2]:<22}{player[3]:<21}')
+
 
 if __name__ == '__main__':
     unittest.main()
+    
