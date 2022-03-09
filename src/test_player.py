@@ -6,11 +6,6 @@ import json
 
 
 class testPlayer(unittest.TestCase):
-    
-    def setUp(self):
-        self.test_list = [{'Player ID': "test player 1", 'Total Games Won': 0,
-            'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }]
         
     def test_init_with_one_argument(self):
         '''test that a player object is made with just one argument'''
@@ -136,51 +131,42 @@ class testPlayer(unittest.TestCase):
     #test choose player
     def test_choose_existing_player(self):
         '''tests that a player from the player list is chosen'''
-        
         test_player = player.Player("test")
-        
+        player.add_player("test")
         chosen_player = player.choose_player("test")
-        self.assertEqual(test_player, chosen_player)
-
+        self.assertEqual(test_player.player_id, chosen_player.player_id)
+        self.assertEqual(test_player.games_played, chosen_player.games_played)
 
 
     def test_choose_non_existing_player(self):
         '''tests that nothing is returned if a player that does not exist is chosen'''
         test_player = player.Player("test")
+        chosen_player = player.choose_player("choose")
+        self.assertIsNone(chosen_player)
 
-        pass
-    
     
     #test player id 
     def test_check_player_id_exists(self):
         '''tests that it returns true if a player who is already on the list exists'''
         test_player = player.Player("test")
-
-        pass
+        player.add_player("test")
+        id_check = player.check_player_id("test")
+        self.assertTrue(id_check)
     
     
     def test_check_player_id_not_exists(self):
         '''tests that it returns false if a player is not already on the list'''
-        test_player = player.Player("test")
+        id_check = player.check_player_id("random")
+        self.assertFalse(id_check)
 
-        pass
-    
     
     #test add player 
-    
     def test_player_is_added_one_argument(self):
-        '''tests if a new player is added to the player list with default stats'''
+        '''tests if a new player is added to the player list'''
         test_player = player.Player("test")
-        
-        pass
-    
-    
-    def test_player_is_added_two_arguments(self):
-        '''tests that a new player is still added with default stats even if multiple arguments are given'''
-        test_player = player.Player("test")
-        
-
-        pass
+        player.add_player("test")
+        player_as_dict = player.player_list[0]
+        self.assertEqual(test_player.player_id, player_as_dict["Player ID"])
     
     
     #test write player data 
