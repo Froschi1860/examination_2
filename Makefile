@@ -74,16 +74,6 @@ lint: flake8 pylint
 
 
 # ---------------------------------------------------------
-# Work with codestyle.
-#
-black:
-	@$(call MESSAGE,$@)
-	 $(PYTHON) -m black src/
-
-codestyle: black
-
-
-# ---------------------------------------------------------
 # Work with unit test and code coverage.
 #
 unittest:
@@ -97,19 +87,12 @@ coverage:
 	cd src/ && coverage report -m
 	mv src/htmlcov/ .
 
-test: lint coverage
+test: unittest coverage
 
 
 # ---------------------------------------------------------
 # Work with generating documentation.
 #
-.PHONY: pydoc
-# Does not yet work -> When working, include in target doc
-pydoc:
-	@$(call MESSAGE,$@)
-	install -d doc/pydoc
-	$(PYTHON) -m pydoc -w src
-	mv *.html doc/pydoc
 
 pdoc:
 	@$(call MESSAGE,$@)
@@ -124,7 +107,6 @@ pyreverse:
 	rm -f classes.dot packages.dot
 
 doc: pdoc pyreverse
-
 
 
 # ---------------------------------------------------------
@@ -152,17 +134,6 @@ cohesion:
 	cohesion --directory src
 
 metrics: radon-cc radon-mi radon-raw radon-hal
-
-
-
-# ---------------------------------------------------------
-# Find security issues in your project.
-#
-bandit:
-	@$(call MESSAGE,$@)
-	bandit --recursive src
-
-
 
 
 # ---------------------------------------------------------
