@@ -66,7 +66,7 @@ def choose_player(player_id):
                 return selected_player
 
 
-def check_player_id(player_id, player_list=player_list):
+def check_player_id(player_id):
     '''checks to see if the player already has stats'''
     return_value = False
     for player in player_list:
@@ -103,6 +103,7 @@ def read_player_data():
                 return player_list
         else:
             return player_list
+        
     except FileExistsError:
         return player_list
 
