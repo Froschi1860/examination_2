@@ -5,7 +5,7 @@ class test_game(unittest.TestCase):
 
     def setUp(self):
         self.test_game = game.Game(player.Player("vee"), player.Player("fabi"))
-        self.test_game.p1_hand, test_game.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
+        self.test_game.p1_hand, self.test_game.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
 
     def test_init_default_values(self):
         """Test the init function with default variables"""
@@ -38,7 +38,48 @@ class test_game(unittest.TestCase):
     def test_card_war(self):
         card_1 = self.test_game.p1_hand.pop(0)
         card_2 = self.test_game.p1_hand.pop(0)
-        self.test_game.print_card_war(card_1, card_2, pot=[])
+        pot = []
+
+        exp_card_1 = self.test_game.p1_hand[0]
+        exp_card_2 = self.test_game.p2_hand[0]
+        exp_card_3 = self.test_game.p1_hand[1]
+        exp_card_4 = self.test_game.p2_hand[1]
+        exp_card_5 = self.test_game.p1_hand[2]
+        exp_card_6 = self.test_game.p2_hand[2]
+
+        card_1, card_2 = self.test_game.print_card_war(card_1, card_2, pot)
+        self.assertIn(exp_card_1, pot)
+        self.assertIn(exp_card_2, pot)
+        self.assertIn(exp_card_3, pot)
+        self.assertIn(exp_card_4, pot)
+        self.assertIn(exp_card_5, pot)
+        self.assertIn(exp_card_6, pot)
+        
+        self.assertEqual(card_1, exp_card_5)
+        self.assertEqual(card_2, exp_card_6)
+
+
+    def test_check_win_for_player_1(self): 
+        p1_hand_cleared = []
+        self.test_game.check_winner(p1_hand_cleared, self.test_game.p2_hand)
+        self.assertTrue(self.test_game.game_over)
+
+
+    def test_check_win_for_player_2(self): 
+        p2_hand_cleared = []
+        self.test_game.check_winner(self.test_game.p1_hand, p2_hand_cleared)
+        self.assertTrue(self.test_game.game_over)
+
+
+    def test_end_game(self):
+        self.test_game.game_winner = self.test_game.player_1
+        self.test_game.game_loser = self.test_game.player_2
+        self.test_game.end_game()
+        self.assertTrue(True)
+
+
+    def test_draw(self):
+        self.test_game.draw(True)
 
 if __name__ == "__main__":
     unittest.main()
