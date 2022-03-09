@@ -45,14 +45,14 @@ current - Display current player
 menu - Display menu
 end - End the programme"""
 
-    def __init__(self, player_1=None, player_2=None, test_mode=False, test_cmd=""):
+    def __init__(self, player_1=None, player_2=None, test_mode=False, setup=("pvc", "com"), test_cmd=""):
         '''Initialise a mainMenu object and enable test_mode for cmdloop'''
         super().__init__()
         self.player_1 = player_1
         self.player_2 = player_2
         self.test_mode = test_mode
         self.test_cmd = test_cmd
-        self.setup = None
+        self.setup = setup
         self.game_rules = rules.game_rules
 
     def cmdloop(self, intro=None):

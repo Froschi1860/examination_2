@@ -170,4 +170,4 @@ bandit:
 #
 start-game:
 	@$(call MESSAGE,$@)
-	$(PYTHON) src/main.py
+	cd src/ && $(PYTHON) main.py
