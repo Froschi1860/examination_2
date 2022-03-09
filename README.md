@@ -60,7 +60,7 @@ All menus support the command help <menu option>
 
 Run more commands
 ------------------
-The prpgramme setup supports different tools utilizing make
+The programme setup supports different tools utilizing make
 
 ### Check python version
 
@@ -155,3 +155,16 @@ To remove all created files and the virtual environment run:
 ```
 make clean-all
 ```
+
+
+
+
+Code authors:
+-------------------
+Enzo Tiberghien
+Fabian Fröschl
+Wibecka Oliver
+
+All code was developed in a collaborative manner.
+
+The project structure and Makefile were created using the template at https://gitlab.com/mikael-roos/python-template/-/tree/main.
