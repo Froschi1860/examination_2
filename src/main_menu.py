@@ -53,7 +53,7 @@ end - End the programme"""
         self.test_mode = test_mode
         self.test_cmd = test_cmd
         self.setup = setup
-        self.game_rules = rules.game_rules
+        self.game_rules = rules.GAME_RULES
 
     def cmdloop(self, intro=None):
         '''Run menu and enforce player choice at beginning in game mode'''

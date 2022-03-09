@@ -1,3 +1,5 @@
+"""This module contains tests for the module player_menu.py"""
+
 import unittest
 import io
 import sys
@@ -19,21 +21,21 @@ class TestPlayerMenu(unittest.TestCase):
         '''Assert instance and player instance variable equals to player argument'''
         test_player = player.Player("test")
         menu = player_menu.PlayerMenu(player_1=test_player)
-        self.assertIsInstance(menu, player_menu.PlayerMenu)        
+        self.assertIsInstance(menu, player_menu.PlayerMenu)
         self.assertEqual(menu.player_1, test_player)
 
     # Test cmdloop()
     def test_cmdloop_in_test_mode_without_test_cmd_terminates(self):
         '''Test if test mode terminates if no test_cmd is given'''
         menu = player_menu.PlayerMenu(test_mode=True)
-        menu.cmdloop()
-        self.assertTrue(True)
+        res = menu.cmdloop()
+        self.assertIsNone(res)
 
     def test_cmdloop_in_test_mode_with_test_cmd_terminates(self):
         '''Test if test mode terminates if command is given'''
         menu = player_menu.PlayerMenu(test_mode=True, test_cmd="current")
-        menu.cmdloop()
-        self.assertTrue(True)
+        res = menu.cmdloop()
+        self.assertIsNone(res)
 
     def test_cmdloop_with_input_choose(self):
         '''Test if input choose activates respective option'''
@@ -53,7 +55,8 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to create a player: create <player_id>\nExiting\n")
+        self.assertEqual(printed_output, "Enter a player id to create a " +
+            "player: create <player_id>\nExiting\n")
 
     def test_cmdloop_with_input_id(self):
         '''Test if input id activates respective option'''
@@ -63,7 +66,8 @@ class TestPlayerMenu(unittest.TestCase):
         menu.cmdloop()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to change the id of the current player: id <player_id>\nExiting\n")
+        self.assertEqual(printed_output, "Enter a player id to change the" +
+            " id of the current player: id <player_id>\nExiting\n")
 
     def test_cmdloop_with_input_current(self):
         '''Test if input current activates respective option'''
@@ -147,7 +151,8 @@ class TestPlayerMenu(unittest.TestCase):
         menu.do_choose("")
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to choose a player: choose <player_id>\n")
+        self.assertEqual(printed_output, "Enter a player id to choose a " +
+            "player: choose <player_id>\n")
         self.assertEqual(menu.player_1, test_player)
 
     def test_do_choose_with_arg_com_and_initialised_player(self):
@@ -194,13 +199,13 @@ class TestPlayerMenu(unittest.TestCase):
         menu.do_create("")
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to create a player: create <player_id>\n")
+        self.assertEqual(printed_output, "Enter a player id to create a " +
+            "player: create <player_id>\n")
         self.assertEqual(menu.player_1, test_player)
 
     def test_do_create_with_existing_player_and_initialised_player(self):
         '''Assert correct print of error message and unchanged current player'''
         test_player = player.Player("test_player")
-        existing_player = player.Player("existing")
         player.add_player("existing")
         menu = player_menu.PlayerMenu(player_1=test_player)
         captured_output = io.StringIO()
@@ -229,7 +234,8 @@ class TestPlayerMenu(unittest.TestCase):
         menu.do_id("")
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        self.assertEqual(printed_output, "Enter a player id to change the id of the current player: id <player_id>\n")
+        self.assertEqual(printed_output, "Enter a player id to change the " +
+            "id of the current player: id <player_id>\n")
         self.assertEqual(menu.player_1, test_player)
 
     def test_do_id_with_existing_player_as_arg_and_non_initialised_player(self):
@@ -246,7 +252,6 @@ class TestPlayerMenu(unittest.TestCase):
     def test_do_id_with_existing_player_as_arg_and_initialised_player(self):
         '''Assert correct print of error message and unchanged current player'''
         test_player = player.Player("test_player")
-        existing_player = player.Player("existing")
         menu = player_menu.PlayerMenu(player_1=test_player)
         captured_output = io.StringIO()
         sys.stdout = captured_output
