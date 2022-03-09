@@ -213,7 +213,7 @@ class TestGameMenu(unittest.TestCase):
         self.assertEqual(test_game_menu.player_2.player_id,
             "non_existing_test_player")
         self.assertEqual(printed_output, "Player non_existing_test_player " +
-            "was created and set to player 2\n")
+            "created and set as player 2\n")
         self.assertEqual(test_game_menu.setup,
             ("pvp", "non_existing_test_player"))
 

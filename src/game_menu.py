@@ -41,7 +41,7 @@ menu - Display menu
 exit - Return to main menu"""
 
     def __init__(self, player_1: player, player_2: player = None,
-            setup=("pvc", "com"), test_mode=False, test_cmd=""):
+                 setup=("pvc", "com"), test_mode=False, test_cmd=""):
         """Initialise game menu objects."""
         super().__init__()
         self.player_1 = player_1
@@ -82,7 +82,7 @@ exit - Return to main menu"""
     def do_setup(self, line):
         """Change setup <pvc/pvp> <id of player 2 for pvp>."""
         invalid_input_msg = ("\nThe inputs of arguments was invalid. Type " +
-            "help setup for instructions.")
+                             "help setup for instructions.")
         args = line.split()
         if len(args) >= 1 and args[0] == "pvc":
             self.setup = ("pvc", "com")
@@ -108,7 +108,7 @@ exit - Return to main menu"""
         else:
             mode = "player vs player"
         print(f"Current setup: Game mode {mode} -> {self.player_1} plays " +
-            "against {self.setup[1]}")
+              f"against {self.setup[1]}")
 
     def do_menu(self, line):
         """Display menu."""
