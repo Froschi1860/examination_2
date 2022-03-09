@@ -122,7 +122,6 @@ class testPlayer(unittest.TestCase):
     def test_to_string(self):
         test_player = player.Player("test")
         self.assertEqual("test", str(test_player))
-        self.assertEqual("boo", str(test_player))
     
     #test choose player
     def test_choose_existing_player(self):
@@ -173,12 +172,21 @@ class testPlayer(unittest.TestCase):
     
     #test read player data
     
-    
+    @patch("builtins.open", new_callable=mock_open,
+       read_data=json.dumps([
+            {'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }]))
     def test_read_player_data_with_existing_file(self):
         '''tests if data is read and from a json file and added into the player list'''
-        pass
-    
-    
+        expected_output = [
+            {'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }
+            ]
+        path = 'Test_player_stats.json'
+        self.assertEqual(mock_open(path), expected_output)
+
     def test_read_player_data_with_no_file(self):
         '''tests to see if when no data is found from a json file the player list remains empty'''
         pass
