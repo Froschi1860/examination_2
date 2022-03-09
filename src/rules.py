@@ -1,4 +1,6 @@
-game_rules = """
+"""The module contains the rules of our version of the card game war."""
+
+GAME_RULES = """
 In this version of war the goal is for one player to get all the cards of the other player.
 
 For each game a card deck of 52 cards is randomly split in half and dealt to the two players.
