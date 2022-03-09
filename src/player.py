@@ -4,8 +4,6 @@ import highscore
 import json
 from os.path import exists as file_exists
 
-from src.highscore import Highscore
-
 player_list = []
 
 class Player:
@@ -57,7 +55,7 @@ class Player:
         return f"{self.player_id}"
 
 
-def choose_player(player_id, player_list):
+def choose_player(player_id, player_list=player_list):
     '''allows a player to be chosen from a list of already existed player, and for their updated statistics
     to be used within the game'''
     for player in player_list:
@@ -68,7 +66,7 @@ def choose_player(player_id, player_list):
                 return selected_player
 
 
-def check_player_id(player_id, player_list):
+def check_player_id(player_id, player_list=player_list):
     '''checks to see if the player already has stats'''
     return_value = False
     for player in player_list:
@@ -76,7 +74,7 @@ def check_player_id(player_id, player_list):
             return_value = True
     return return_value 
 
-def add_player(player_id, player_list):
+def add_player(player_id, player_list=player_list):
     '''adds a new player to the player stats list'''
     player_stats = {'Player ID': player_id, 'Total Games Won': 0,
                     'Total Games Played': 0 , 'Total Rounds Played': 0, 

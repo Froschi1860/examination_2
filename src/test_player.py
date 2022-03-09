@@ -4,9 +4,13 @@ import player
 from unittest.mock import patch, mock_open
 import json
 
-test_player_list = []
 
 class testPlayer(unittest.TestCase):
+    
+    def setUp(self):
+        self.test_list = [{'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }]
         
     def test_init_with_one_argument(self):
         '''test that a player object is made with just one argument'''
@@ -132,9 +136,7 @@ class testPlayer(unittest.TestCase):
     #test choose player
     def test_choose_existing_player(self):
         '''tests that a player from the player list is chosen'''
-        test_list = [{'Player ID': "test player 1", 'Total Games Won': 0,
-            'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }]
+        
         test_player = player.Player("test")
         
         chosen_player = player.choose_player("test")
