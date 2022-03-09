@@ -72,19 +72,19 @@ exit - Return to main menu"""
             print("Enter a player id to choose a player: choose <player_id>")
         elif player_id == "com":
             print("The computer can not be chosen as player")
-        elif not player.check_player_id(player_id):
+        elif not player.check_player_id(player_id, player.player_list):
             print(f"The player with the id {player_id} does not exist")
         else:
-            self.player_1 = player.choose_player(player_id)
+            self.player_1 = player.choose_player(player_id, player.player_list)
 
     def do_create(self, line):
         '''Create a new player profile'''
         args = line.split()
-        if len(args) == 1 and player.check_player_id(args[0]):
+        if len(args) == 1 and player.check_player_id(args[0],player.player_list):
             print(f"A player with the id {args[0]} already exists.")
-        elif len(args) == 1 and not player.check_player_id(args[0]):
+        elif len(args) == 1 and not player.check_player_id(args[0], player.player_list):
             self.player_1 = player.Player(args[0])
-            player.add_player(args[0])
+            player.add_player(args[0], player.player_list)
         else:
             print("Enter a player id to create a player: create <player_id>")
 
@@ -96,7 +96,7 @@ exit - Return to main menu"""
             print("Enter a player id to change the id of the current player: id <player_id>")
         elif self.player_1 is None:
             print("Choose or create a player before changing the id")
-        elif player.check_player_id(new_player_id):
+        elif player.check_player_id(new_player_id, player.player_list):
             print(f"A player with the id {new_player_id} already exists")
         else:
             self.player_1.change_player_id(new_player_id)
