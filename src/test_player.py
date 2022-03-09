@@ -177,7 +177,7 @@ class testPlayer(unittest.TestCase):
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }]))
-    def test_read_player_data_with_existing_file(self):
+    def test_read_player_data_with_existing_file(self, mock_file):
         '''tests if data is read and from a json file and added into the player list'''
         expected_output = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
@@ -185,6 +185,7 @@ class testPlayer(unittest.TestCase):
             'Last Game Won': True, 'Last Rounds Played': 0 }
             ]
         path = 'Test_player_stats.json'
+        
         self.assertEqual(mock_open(path), expected_output)
 
     def test_read_player_data_with_no_file(self):
