@@ -2,6 +2,11 @@ import unittest, card, deck, cardHand, time, player, game
 from unittest.mock import patch
 
 class test_game(unittest.TestCase):
+
+    def setUp(self):
+        self.test_game = game.Game(player.Player("vee"), player.Player("fabi"))
+        self.test_game.p1_hand, test_game.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
+
     def test_init_default_values(self):
         """Test the init function with default variables"""
         the_game = game.Game("", "")
@@ -31,7 +36,9 @@ class test_game(unittest.TestCase):
 
 
     def test_card_war(self):
-        the_game = game.Game(player.Player("vee"), player.Player("fabi"))
+        card_1 = self.test_game.p1_hand.pop(0)
+        card_2 = self.test_game.p1_hand.pop(0)
+        self.test_game.print_card_war(card_1, card_2, pot=[])
 
 if __name__ == "__main__":
     unittest.main()
