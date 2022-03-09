@@ -73,7 +73,6 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         test_highscore.display_highscore()
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
-        print(printed_output)
         desired_output = self.test_display_header + """
 test player 3  4            5                     0                    
 test player 2  1            0                     0                    
