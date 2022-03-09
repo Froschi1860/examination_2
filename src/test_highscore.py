@@ -74,14 +74,15 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         sys.stdout = sys.__stdout__
         printed_output = captured_output.getvalue()
         print(printed_output)
-        desired_output = self.test_display_header + """test player 3  4            5                     0                    
+        desired_output = self.test_display_header + """
+test player 3  4            5                     0                    
 test player 2  1            0                     0                    
-test player 1  0            1                     0"""
+test player 1  0            1                     0                    \n"""
         self.assertTrue(printed_output != "")
-        self.assertAlmostEqual(printed_output, desired_output)
+        self.assertEqual(printed_output, desired_output)
 
 
 
 if __name__ == '__main__':
     unittest.main()
-    
+      
