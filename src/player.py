@@ -86,7 +86,7 @@ def add_player(player_id):
 def write_player_data(player_list):
     '''This method creates a file which is then used to store the player list outside of each game'''   
     try:
-        with open('src/Player_stats.json', 'w') as file:
+        with open('Player_stats.json', 'w') as file:
             json.dump(player_list, file)
         
     except FileNotFoundError:
@@ -95,14 +95,14 @@ def write_player_data(player_list):
 
 def read_player_data():
     '''This method reads data from an already existing json file if the user has played the game before'''
-    player_list = []
+    empty_player_list = []
     try:
-        if file_exists('src/Player_stats.json'): 
-            with open('src/Player_stats.json', 'r') as file:
+        if file_exists('Player_stats.json'): 
+            with open('Player_stats.json', 'r') as file:
                 player_list = json.load(file)
                 return player_list
         else:
-            return player_list
+            return empty_player_list 
         
     except FileExistsError:
         return player_list
