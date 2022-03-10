@@ -88,13 +88,15 @@ Player IDs are case-sensitive.
 
 Type the following commands and confirm with enter to navigate:  
 
-    player - Open the player menu
-    game - Set up and start a new game
-    highscore - Display player statistics
-    rules - Display the game rules
-    current - Display current player
-    menu - Display menu
-    end - End the programme
+```
+player - Open the player menu
+game - Set up and start a new game
+highscore - Display player statistics
+rules - Display the game rules
+current - Display current player
+menu - Display menu
+end - End the programme
+```
 
 ### Player menu
 
