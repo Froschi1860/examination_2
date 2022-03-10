@@ -191,7 +191,7 @@ class testPlayer(unittest.TestCase):
         with open('Test_player_stats.json', 'w') as test_file:
             json.dump(content,test_file)
             
-        test_list = player.read_player_data('Test_player_stats.json')
+        test_list = player.read_player_data()
         self.assertEqual(content, test_list)
         os.remove('Test_player_stats.json')
         
@@ -199,7 +199,7 @@ class testPlayer(unittest.TestCase):
     def test_read_player_data_with_no_file(self):
         '''tests to see if when no data is found from a json file the player list remains empty'''
         no_values_list = []
-        no_file_exists = player.read_player_data("random_file.json")
+        no_file_exists = player.read_player_data()
         self.assertEqual(no_values_list, no_file_exists)
     
     
