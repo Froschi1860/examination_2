@@ -89,7 +89,7 @@ class testPlayer(unittest.TestCase):
         """Test updates statistics for a winning game."""
         test_player = player.Player("test")
         former_stats_wins = test_player.total_games_won
-        former_stats_rounds= test_player.total_rounds_played
+        former_stats_rounds = test_player.total_rounds_played
         former_stats_games = test_player.games_played
         test_winner = True
         test_rounds = 10
@@ -114,7 +114,6 @@ class testPlayer(unittest.TestCase):
         self.assertEqual(test_player.total_rounds_played, (former_stats_rounds + test_rounds))
         self.assertGreater(test_player.games_played, former_stats_games)
         self.assertEqual(test_rounds, test_player.last_rounds_played)
-
 
     # test to String method
     def test_to_string(self):
@@ -146,7 +145,6 @@ class testPlayer(unittest.TestCase):
         id_check = player.check_player_id("test")
         self.assertTrue(id_check)
 
-
     def test_check_player_id_not_exists(self):
         """Tests that it returns false if a player is not already on the list."""
         id_check = player.check_player_id("random")
@@ -166,8 +164,8 @@ class testPlayer(unittest.TestCase):
         """Tests if data from the player list is saved into a JSON file."""
         list_content = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
-            'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }]
+            'Total Games Played': 1, 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0}]
         player.write_player_data(list_content)
         self.assertTrue('Player_stats.json')
         os.remove('Player_stats.json')
@@ -176,8 +174,8 @@ class testPlayer(unittest.TestCase):
     def test_read_player_data_with_existing_file(self):
         """Tests if data is read and from a json file and added into the player list."""
         content = [{'Player ID': "test player 1", 'Total Games Won': 0,
-            'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }]
+            'Total Games Played': 1, 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0}]
         with open('Player_stats.json', 'w') as test_file:
             json.dump(content,test_file)
 
@@ -195,3 +193,4 @@ class testPlayer(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
