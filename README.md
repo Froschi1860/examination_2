@@ -109,12 +109,15 @@ Type the following commands and confirm with enter to navigate (necessary argume
 
 ### Game menu
 
-Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets):  
+Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets): 
+
+```
     start - Start a new game with current setup
     setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
     current - Display currrent setup
     menu - Display menu
     exit - Return to main menu
+```
 
 ### Inside a game
 
