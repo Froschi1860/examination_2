@@ -83,22 +83,22 @@ def add_player(player_id):
     
 
 
-def write_player_data(player_list,path):
+def write_player_data(player_list):
     '''This method creates a file which is then used to store the player list outside of each game'''   
     try:
-        with open(path, 'w') as file:
+        with open('src/Player_stats.json', 'w') as file:
             json.dump(player_list, file)
         
     except FileNotFoundError:
         return 'There does not seem to be a saved file' 
             
 
-def read_player_data(path):
+def read_player_data():
     '''This method reads data from an already existing json file if the user has played the game before'''
     player_list = []
     try:
-        if file_exists(path): 
-            with open(path, 'r') as file:
+        if file_exists('src/Player_stats.json'): 
+            with open('src/Player_stats.json', 'r') as file:
                 player_list = json.load(file)
                 return player_list
         else:
