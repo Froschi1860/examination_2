@@ -2,3 +2,4 @@
 src/__pycache__/
 Player_stats.json
 src/.coverage
+venv/

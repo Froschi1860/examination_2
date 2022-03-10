@@ -3,11 +3,6 @@ War
 
 An implementation of the card game war as command line game. (Current version: v1.0.0)
 
-[_TOC_]
-
-
-Install the game
---------------------
 
 
 Requirements
@@ -15,12 +10,23 @@ Requirements
 
 ### Starting the game
 * Python 3 needs to be installed
+* Git Bash needs to be installed on Windows and all commands must be run in Git Bash
 
 ### Using automated commands (linting, documentation, etc.)
 * Make needs to be installed
 * The Python path variable needs to be set to python (or python 3 with adjustment in the Makefile)
 * Graphviz needs to be installed to automatically create UML diagrams
-* Git Bash needs to be installed on Windows and all commands must be run in Git Bash
+
+
+Install the app
+--------------------
+
+The easiest way to install the app is to use git. In the command line, navigate to the folder where you would like to intall the game and run:
+```
+git copy https://github.com/Froschi1860/examination_2.git
+```
+
+Alternatively, go to https://github.com/Froschi1860/examination_2.git to download a zip-file with the app. Unpack this file in a directory of your choice and enter it via the command line.
 
 
 Start the game
@@ -48,6 +54,7 @@ Navigate the ingame menus
 All menus support the command help
 
 ### Main menu
+
 
 
 ### Player menu
