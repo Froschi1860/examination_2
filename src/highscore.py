@@ -1,30 +1,33 @@
 """The module contains a class that creates and initialises the highscore.
 
-A test mode is availabe for unit tests."""
-import player
+A test mode is availabe for unit tests.
+"""
 
 class Highscore:
-    """This class creates, reads and displays the Highscore"""
-    
+    """This class creates, reads and displays the Highscore."""
+
     def __init__(self, player_list):
+        """Intitalize the player list in the highscore object."""
         self.player_list = player_list
-        
-    
+
+
     def sort_score_results(self):
-        """sorts the highscore based on which player has acheived the most wins and truncates the scoreboard to 
-        only show the desired statistics for each player"""
+        """Sorts the highscore based on which player has acheived the most
+        wins and truncates the scoreboard to only show the desired statistics
+        for each player.
+        """
         scoreboard = []
-        ranked_list_of_dicts = sorted(self.player_list, key=lambda player: player['Total Games Won'], reverse = True)
+        ranked_list_of_dicts = sorted(self.player_list,key=lambda player: player['Total Games Won'], 
+                                      reverse = True)
         for player in ranked_list_of_dicts:
             stats = player.values()
             player_stats = list(stats)
             scoreboard.append(player_stats[0:4])
-        
+
         return scoreboard
 
     def display_highscore(self):
-        """displays the highscore according to a particular format"""
-        
+        """Displays the highscore according to a particular format."""
         header = '''
 HIGHSCORE RESULTS:\n
 ---------------------------------------------------------------------\n
