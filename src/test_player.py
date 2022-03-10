@@ -1,8 +1,9 @@
 import unittest
-from xml.etree.ElementTree import tostring
+from unittest import mock
 import player
 from unittest.mock import patch, mock_open
 import json
+from os.path import exists as file_exists
 
 
 class testPlayer(unittest.TestCase):
@@ -131,6 +132,8 @@ class testPlayer(unittest.TestCase):
         chosen_player = player.choose_player("test")
         self.assertEqual(test_player.player_id, chosen_player.player_id)
         self.assertEqual(test_player.games_played, chosen_player.games_played)
+        self.assertEqual(test_player.total_rounds_played, chosen_player.total_rounds_played)
+        
 
 
     def test_choose_non_existing_player(self):
@@ -163,33 +166,38 @@ class testPlayer(unittest.TestCase):
         player_as_dict = player.player_list[0]
         self.assertEqual(test_player.player_id, player_as_dict["Player ID"])
     
-    
+
     #test write player data 
     def test_write_player_data(self):
         '''tests if data from the player list is saved into a JSON file'''
-        test_player = player.Player("test")
-        pass
-    
-    #test read player data
-    
-    @patch("builtins.open", new_callable=mock_open,
-       read_data=json.dumps([
-            {'Player ID': "test player 1", 'Total Games Won': 0,
-            'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }]))
-    def test_read_player_data_with_existing_file(self, mock_file):
-        '''tests if data is read and from a json file and added into the player list'''
-        expected_output = [
+        list_content_mock = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }
-            ]
-        path = 'Test_player_stats.json'
+        ]
         
-        self.assertEqual(mock_open(path), expected_output)
+            
+    #test read player data
+    @mock.patch('player.write_player_data')
+    def test_read_player_data_with_existing_file(self, mock_write_file):
+        '''tests if data is read and from a json file and added into the player list'''
+        result = player.read_player_data()
+        mock_write_file.return_value = json.dumps [
+            {'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }
+        ]
+        list_content_mock = [
+            {'Player ID': "test player 1", 'Total Games Won': 0,
+            'Total Games Played': 1 , 'Total Rounds Played': 0, 
+            'Last Game Won': True, 'Last Rounds Played': 0 }
+        ]
+        assert player.read_player_data == list_content_mock
+        mock_write_file.assert_called_once()
 
     def test_read_player_data_with_no_file(self):
         '''tests to see if when no data is found from a json file the player list remains empty'''
+        
         pass
     
     
