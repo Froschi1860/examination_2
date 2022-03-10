@@ -82,7 +82,7 @@ All commands are case-insensitive.
 Invalid commands are handled.  
 Invalid arguments after commands are ignored if no arguments are expected, otherwise they are handled.  
 Additional arguments that are not expected are ignored.  
-Player IDs are case-sensitive.  
+Player IDs are autosaved lowercase.  
 
 ### Main menu
 
