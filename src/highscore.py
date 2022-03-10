@@ -3,6 +3,7 @@
 A test mode is availabe for unit tests.
 """
 
+
 class Highscore:
     """This class creates, reads and displays the Highscore."""
 
@@ -10,14 +11,12 @@ class Highscore:
         """Intitalize the player list in the highscore object."""
         self.player_list = player_list
 
-
     def sort_score_results(self):
         """Sorts the highscore based on which player has acheived the most
         wins and truncates the scoreboard to only show the desired statistics
-        for each player.
-        """
+        for each player."""
         scoreboard = []
-        ranked_list_of_dicts = sorted(self.player_list,key=lambda player: player['Total Games Won'], 
+        ranked_list_of_dicts = sorted(self.player_list,key=lambda player: player['Total Games Won'],
                                       reverse = True)
         for player in ranked_list_of_dicts:
             stats = player.values()
@@ -37,5 +36,3 @@ PLAYER        | TOTAL WINS | TOTAL GAMES PLAYED | TOTAL ROUNDS PLAYED
         scoreboard = self.sort_score_results()
         for player in scoreboard:
             print(f'{player[0]:<15}{player[1]:<13}{player[2]:<22}{player[3]:<21}')
-
-        
