@@ -81,7 +81,7 @@ class Game:
     def end_game(self):
         self.game_winner.update_player_stats(True, self.rounds)
         self.game_loser.update_player_stats(False, self.rounds)
-        player.write_player_data(player.player_list, 'Player_stats.json')
+        player.write_player_data(player.player_list, 'src/Player_stats.json')
 
     
     def draw(self, simulate=False):
