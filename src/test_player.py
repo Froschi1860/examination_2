@@ -5,7 +5,6 @@ from unittest.mock import patch, mock_open
 import json
 from os.path import exists as file_exists
 import os
-from io import StringIO
 
 
 class testPlayer(unittest.TestCase):
@@ -176,10 +175,9 @@ class testPlayer(unittest.TestCase):
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }]
-        temp_path = 'Test_player_stats.json'
-        result = player.write_player_data(list_content, temp_path)
-        print(result)
-        os.remove('Test_player_stats.json')
+        player.write_player_data(list_content)
+        self.assertTrue('Player_stats.json')
+        os.remove('Player_stats.json')
     
             
     #test read player data
@@ -188,17 +186,19 @@ class testPlayer(unittest.TestCase):
         content = [{'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
             'Last Game Won': True, 'Last Rounds Played': 0 }]
-        with open('Test_player_stats.json', 'w') as test_file:
+        with open('Player_stats.json', 'w') as test_file:
             json.dump(content,test_file)
             
         test_list = player.read_player_data()
         self.assertEqual(content, test_list)
-        os.remove('Test_player_stats.json')
+        os.remove('Player_stats.json')
         
 
     def test_read_player_data_with_no_file(self):
         '''tests to see if when no data is found from a json file the player list remains empty'''
         no_values_list = []
+        if file_exists('Player_stats.json'):
+            os.remove('Player_stats.json')
         no_file_exists = player.read_player_data()
         self.assertEqual(no_values_list, no_file_exists)
     
