@@ -163,6 +163,7 @@ class testPlayer(unittest.TestCase):
     def test_player_is_added_one_argument(self):
         '''tests if a new player is added to the player list'''
         test_player = player.Player("test")
+        player.player_list = []
         player.add_player("test")
         player_as_dict = player.player_list[0]
         self.assertEqual(test_player.player_id, player_as_dict["Player ID"])
