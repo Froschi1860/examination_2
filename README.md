@@ -1,9 +1,9 @@
 War
 =================
 
-An implementation of the card game war as command line game
+An implementation of the card game war as command line game. (Current version: v1.0.0)
 
-[[_TOC_]]
+[_TOC_]
 
 
 Install the game
@@ -45,7 +45,7 @@ python main.py
 Navigate the ingame menus
 -----------------
 
-All menus support the command help <menu option>
+All menus support the command help
 
 ### Main menu
 
@@ -56,7 +56,11 @@ All menus support the command help <menu option>
 ### Game menu
 
 
+### Inside a game
 
+
+Implementation of computer player
+-----------------------------
 
 Run more commands
 ------------------
@@ -118,6 +122,8 @@ The coverage reports are saved in the directory htmlcov/
 
 Code coverage of more than 80% for each module was the internal goal for this version.
 
+A decision was taken not to include test suites for main.py and rules.py. All functionality in main.py is covered in the other test suites and rules.py contains only a description of the game rules.
+
 
 ### Documentation and UML
 NOTE: Install necessary packages before.
@@ -161,9 +167,9 @@ make clean-all
 
 Code authors:
 -------------------
-Enzo Tiberghien
-Fabian Fröschl
-Wibecka Oliver
+* Enzo Tiberghien
+* Fabian Fröschl
+* Wibecka Oliver
 
 All code was developed in a collaborative manner.
 
