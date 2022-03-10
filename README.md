@@ -100,23 +100,26 @@ Type the following commands and confirm with enter to navigate:
 
 Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets):  
 
-    choose <player_id> - Open an existing player profile
-    create <player_id> - Create a new player profile
-    id <player_id> - Change id of current player
-    current - Display current Player
-    menu - Display menu
-    exit - Return to main menu
+```
+choose <player_id> - Open an existing player profile
+create <player_id> - Create a new player profile
+id <player_id> - Change id of current player
+current - Display current Player
+menu - Display menu
+exit - Return to main menu
+```
+
 
 ### Game menu
 
 Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets): 
 
 ```
-    start - Start a new game with current setup
-    setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
-    current - Display currrent setup
-    menu - Display menu
-    exit - Return to main menu
+start - Start a new game with current setup
+setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
+current - Display currrent setup
+menu - Display menu
+exit - Return to main menu
 ```
 
 ### Inside a game
