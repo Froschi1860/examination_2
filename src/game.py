@@ -121,7 +121,6 @@ class Game:
 
     def start(self):
         self.p1_hand, self.p2_hand = deck.Deck.deal_cards(deck.Deck().deck)
-        print(self.player_1, self.player_2)
         
         while not self.game_over:
             print("Press ENTER to draw, Type EXIT to quit game or CHEAT to simulate the game: ", end="")
