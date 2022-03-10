@@ -2,6 +2,7 @@ War
 =================
 
 An implementation of the card game war as command line game. (Current version: v1.0.0)
+Played games are saved in this game and a highscore of all games played since installation can be displayed.
 
 
 
@@ -119,6 +120,7 @@ The messages displayed are known to the code authors and the goal is to solve th
 
 ### Unittests and code coverage
 NOTE: Install necessary packages before.
+NOTE: Running the unittests and/or coverage will delete the saved player statistics.
 
 To execute the test suites and create coverage reports run:
 ```
