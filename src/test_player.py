@@ -5,6 +5,7 @@ from unittest.mock import patch, mock_open
 import json
 from os.path import exists as file_exists
 import os
+from io import StringIO
 
 
 class testPlayer(unittest.TestCase):
@@ -171,15 +172,17 @@ class testPlayer(unittest.TestCase):
     #test write player data 
     def test_write_player_data(self):
         '''tests if data from the player list is saved into a JSON file'''
-        list_content_mock = [
+        list_content = [
             {'Player ID': "test player 1", 'Total Games Won': 0,
             'Total Games Played': 1 , 'Total Rounds Played': 0, 
-            'Last Game Won': True, 'Last Rounds Played': 0 }
-        ]
-        
+            'Last Game Won': True, 'Last Rounds Played': 0 }]
+        temp_path = 'Test_player_stats.json'
+        result = player.write_player_data(list_content, temp_path)
+        print(result)
+        os.remove('Test_player_stats.json')
+    
             
     #test read player data
-    
     def test_read_player_data_with_existing_file(self):
         '''tests if data is read and from a json file and added into the player list'''
         content = [{'Player ID': "test player 1", 'Total Games Won': 0,
