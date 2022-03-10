@@ -4,6 +4,31 @@ War
 An implementation of the card game war as command line game. (Current version: v1.0.0)
 Played games are saved in this game and a highscore of all games played since installation can be displayed.
 
+Game rules in this implementation:
+----------------------------------
+
+In this version of war the goal is for one player to get all the cards of the other player.
+
+For each game a card deck of 52 cards is randomly split in half and dealt to the two players.
+
+In each round both players draw the card on top of their hand.
+The suits and values of both cards are compared and, depending on the result, the game continues
+with a war or with the next draw.
+
+A war occurs whenever either the values or the suits of both cards match.
+
+If no war occurs, the card with the higher value wins and the winner puts both cards underneath
+their stack. Then the game continues with the next draw.
+
+If a war occurs both players add the next three cards of their decks into the pot without looking 
+at them.
+The next card is drawn and the winner gets all cards in the pot. In case of another war,
+again the next three cards are blindly added to the pot and the game continues with the next draw.
+This repeats until a draw is won.
+After a war was won, the winner receives the pot and is allowed to sort the cards in it before
+putting them underneath their stack.
+
+The game ends as soon as one player runs out of cards, regardless of whether a war is ongoing.
 
 
 Requirements
@@ -52,23 +77,64 @@ python main.py
 Navigate the ingame menus
 -----------------
 
-All menus support the command help
+All menus support the command help.
+All commands are case-insensitive.
+Invalid commands are handled.
+Invalid arguments after commands are ignored if no arguments are expected, otherwise they are handled.
+Additional arguments that are not expected are ignored.
+Player IDs are case-sensitive.
 
 ### Main menu
 
+Type the following commands and confirm with enter to navigate:
 
+    player - Open the player menu
+    game - Set up and start a new game
+    highscore - Display player statistics
+    rules - Display the game rules
+    current - Display current player
+    menu - Display menu
+    end - End the programme
 
 ### Player menu
 
+Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets):
+
+    choose <player_id> - Open an existing player profile
+    create <player_id> - Create a new player profile
+    id <player_id> - Change id of current player
+    current - Display current Player
+    menu - Display menu
+    exit - Return to main menu
 
 ### Game menu
 
+Type the following commands and confirm with enter to navigate (necessary arguments in angular brackets):
+
+    start - Start a new game with current setup
+    setup <mode:"pvc"/"pvp"> <only in mode pvp:"player_2_id"> - Change setup
+    current - Display currrent setup
+    menu - Display menu
+    exit - Return to main menu
 
 ### Inside a game
+
+When no war is happening:
+* Press enter to draw the next cards for both players.
+* Type exit and to end the current game without saving the result in the highscore.
+* Restart with the same setup is possible by exiting the game and typing start in the game menu.
+* Type cheat to simulate the rest of the current game. Result is saved in highscore.
+
+After a won war:
+* Type switch to change two cards. Enter index of first card, then index of second card.
+* Type done once the sorting is finished.
 
 
 Implementation of computer player
 -----------------------------
+In this version (v1.0.0) the computer is implemented to automatically handle won wars without need for user input.
+In later versions different levels of intelligence for the computer may be added.
+
 
 Run more commands
 ------------------
@@ -129,7 +195,7 @@ make test
 
 The coverage reports are saved in the directory htmlcov/
 
-Code coverage of more than 80% for each module was the internal goal for this version.
+Code coverage of more than 90% for each module was the internal goal for this version.
 
 A decision was taken not to include test suites for main.py and rules.py. All functionality in main.py is covered in the other test suites and rules.py contains only a description of the game rules.
 
