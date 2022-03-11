@@ -1,7 +1,7 @@
 War
 =================
 
-An implementation of the card game war as command line game. (Current version: v1.0.0)  
+An implementation of the card game war as command line game. (Current version: v1.0.1)  
 Played games are saved in this game and a highscore of all games played since installation can be displayed.  
 
 Game rules in this implementation:
@@ -139,7 +139,7 @@ After a won war:
 
 Implementation of computer player
 -----------------------------
-In this version (v1.0.0) the computer is implemented to automatically handle won wars without need for user input.  
+In this version the computer is implemented to automatically handle won wars without need for user input.  
 In later versions different levels of intelligence for the computer may be added.  
 
 
