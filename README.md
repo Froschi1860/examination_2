@@ -193,6 +193,7 @@ The messages displayed are known to the code authors and the goal is to solve th
 
 ### Unittests and code coverage
 NOTE: Install necessary packages before.  
+NOTE: You should run make clean-doc before creating a new coverage report.  
 NOTE: Running the unittests and/or coverage will delete the saved player statistics.  
 
 To execute the test suites and create coverage reports run:
@@ -208,7 +209,8 @@ A decision was taken not to include test suites for main.py and rules.py. All fu
 
 
 ### Documentation and UML
-NOTE: Install necessary packages before.  
+NOTE: Install necessary packages before. 
+NOTE: You should run make clean-doc before creating new documentation.  
 
 To create documentation run:
 ```

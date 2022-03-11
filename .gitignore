@@ -5,3 +5,8 @@ src/Player_stats.json
 src/.coverage
 venv/
 src/game/
+htmlcov/
+doc/pdoc/
+doc/pyreverse/
+src/htmlcov/
+.coverage

@@ -47,11 +47,12 @@ clean:
 	@$(call MESSAGE,$@)
 	rm -f .coverage *.pyc src/.coverage
 	rm -rf __pycache__
+	rm -rf src/__pycache__
 	rm -rf htmlcov
 
 clean-doc: clean
 	@$(call MESSAGE,$@)
-	rm -rf doc
+	rm -rf doc/pyreverse doc/pdoc
 
 clean-all: clean clean-doc
 	@$(call MESSAGE,$@)
@@ -86,6 +87,7 @@ coverage:
 	cd src/ && coverage html
 	cd src/ && coverage report -m
 	mv src/htmlcov/ .
+	rm src/.coverage
 
 test: unittest coverage
 

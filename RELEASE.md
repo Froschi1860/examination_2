@@ -1,6 +1,13 @@
 Release history
 ===================
+  
+v1.0.1 (2022-03-09)
+-------------------
 
+* Fixes in code quality
+* Reorganised directory structure for project upload
+* Updated README.md, Makefile and RELEASE.md
+  
 v1.0.0 (2022-03-09)
 -------------------
 
