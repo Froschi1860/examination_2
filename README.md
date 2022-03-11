@@ -49,7 +49,7 @@ Install the app
 
 The easiest way to install the app is to use git. In the command line, navigate to the folder where you would like to intall the game and run:
 ```
-git copy https://github.com/Froschi1860/examination_2.git
+git clone https://github.com/Froschi1860/examination_2.git
 ```
 
 Alternatively, go to https://github.com/Froschi1860/examination_2.git to download a zip-file with the app. Unpack this file in a directory of your choice and enter it via the command line.  
